@@ -3,3 +3,12 @@
   align-items: center;
   justify-content: center;
 }
+
+
+.container {
+  height: 300px;
+  width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}

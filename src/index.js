@@ -11,18 +11,34 @@ class Square extends React.Component {
   //each square will have a symbol property
   render() {
     return (
-      <button>
-        {'button'}
+      <button className={this.props.className === 0 || this.props.className === 1 || this.props.className === 2 || this.props.className === 3 ? 'firstRow' : 'secondRow'}>
+        {this.props.value}
       </button>
     )
   }
 }
 
 class Board extends React.Component {
+  //this.prop.squares is array of numbers
+  //this.prop.whichPlayer is either A or B
+
+  renderGrid() {
+    return this.props.squares.map((square, index) => {
+      console.log(index);
+      return (
+        <Square
+          value = {square}
+          key = {Math.floor(Math.random() * 100)}
+          className={index}
+        />
+      )
+    })
+  }
+
   render() {
     return (
-      <div className="square">
-        <Square/>
+      <div className="container">
+        {this.renderGrid()}
       </div>
     )
   }
@@ -40,14 +56,13 @@ class Game extends React.Component {
       matchMade: true,
       playerOneMatches: 0,
       playerTwoMatches: 0,
-      //2 each of 1,2,3
+      //2 each of 1,2,3,4
       squares: [],
     }
   }
 
   fillSquares() {
-
-    //choose random number between 0 and possiblesquares.length, add that number to the empty array, and then pop that number out of the possibleSquares array, and decrement possibleSquares.length
+    //choose random number between 0 and 7 (length of possibleSquares -1), add that number to the empty array, and then remove that number out of the possibleSquares array, and decrement possibleSquares.length
       let possibleSquares = [1,1,2,2,3,3,4,4];
       let squares = this.state.squares;
       for (let i = 7; i > -1; --i) {
@@ -55,25 +70,11 @@ class Game extends React.Component {
 
         let chosenSquare = possibleSquares[chosenIndex];
         squares.push(chosenSquare);
-        console.log(`possibleSquares before splice ${possibleSquares}`)
         possibleSquares.splice(chosenIndex, 1);
-        console.log(`possibleSquares ${possibleSquares}`)
       }
       this.setState({
         squares: squares,
       })
-      console.log(this.state.squares);
-
-
-
-        // let chosenIndex = Math.random(0,8);
-        // let chosenSquare = this.state.possibleSquares[chosenIndex];
-        // let squares = this.state.squares;
-        // squares.push(chosenSquare);
-        // this.setState({
-        //   squares: squares,
-        //   possibleSquares: this.state.possibleSquares.splice(chosenIndex, 1)
-        // })
   }
 
 
@@ -84,11 +85,13 @@ class Game extends React.Component {
     //if not, set matchMade to false and change whichPlayer to 'B'
   }
 
+
+
   render() {
     return (
       <div>
         <div className="board">
-          <Board whichPlayer = {this.state.whichPlayer} onClick = {() => this.handleClick()}/>
+          <Board squares = {this.state.squares} whichPlayer = {this.state.whichPlayer} onClick = {() => this.handleClick()}/>
         </div>
         <div className="game-info">
           <button onClick = {() => this.fillSquares()}>Begin Game</button>
