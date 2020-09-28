@@ -4,6 +4,13 @@
   justify-content: center;
 }
 
+.board {
+  float: left;
+}
+
+.game-info {
+  margin-left: 600px;
+}
 
 .container {
   height: 300px;
