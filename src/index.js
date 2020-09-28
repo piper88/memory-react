@@ -11,18 +11,23 @@ const uuid = require('uuid/v4');
 class Square extends React.Component {
   //each square will have a symbol property
 
-  showValue() {
-    console.log(`this.props.squareClicked ${this.props.squareClicked}`)
-    return this.props.square;
+  showSquares() {
+    return this.props.exposedSquares.map((index) => {
+      //if index is equal to this.props.index, then button should show this.props.square
+      if (index === this.props.index) {
+        return this.props.square
+      } else {
+        return null
+      }
+    })
   }
 
   render() {
-
     return (
       <button
       onClick= {() => this.props.onClick()}
       >
-        {this.props.square === this.props.squareClicked[1] && this.props.index === this.props.squareClicked[0] ? this.props.square : null}
+        {this.showSquares()}
       </button>
     )
   }
@@ -40,7 +45,9 @@ class Board extends React.Component {
       return (
         <Square
           squareClicked = {this.props.squareClicked}
-          onClick = {() => this.props.onClick(index, square)}
+          //passes index back to Game
+          onClick = {() => this.props.onClick(index)}
+          exposedSquares = {this.props.exposedSquares}
           index = {index}
           square = {square}
           key = {uuid()}
@@ -72,6 +79,8 @@ class Game extends React.Component {
       playerTwoMatches: 0,
       //2 each of 1,2,3,4
       squares: [],
+      exposedSquares: [],
+      //array of last two things clicked
       squareClicked: [],
     }
     this.handleClick = this.handleClick.bind(this);
@@ -96,11 +105,26 @@ class Game extends React.Component {
 
 
 
-  handleClick(index, value) {
-    console.log(`handleClicked: index of square clicked${index} value of square clicked ${value}`);
+  handleClick(index) {
+
+    let squareClicked = this.state.squareClicked;
+    let numberOfTurns = this.state.numberOfTurns;
+    let exposedSquares = this.state.exposedSquares;
+    exposedSquares.push(index);
+    if (this.state.numberOfTurns < 2) {
+      numberOfTurns++;
+      squareClicked.push(index)
+    } else {
+      numberOfTurns = 0;
+      squareClicked = [];
+    }
     this.setState({
-      squareClicked: [index, value]
+      squareClicked: squareClicked,
+      numberOfTurns: numberOfTurns,
+      exposedSquares: exposedSquares,
     })
+    console.log(`squareClicked ${this.state.squareClicked}`)
+    console.log(`exposedSquares ${this.state.exposedSquares}`)
     //increment the number of turns until 2
     //if matchMade, set matchMade to true, increment the playerOneMatches or playerTwoMatches
     //if not, set matchMade to false and change whichPlayer to 'B'
@@ -112,7 +136,7 @@ class Game extends React.Component {
     return (
       <div>
         <div className="board">
-          <Board squareClicked = {this.state.squareClicked} squares = {this.state.squares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
+          <Board squareClicked = {this.state.squareClicked} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
         </div>
         <div className="game-info">
           <button onClick = {this.fillSquares}>Begin Game</button>
