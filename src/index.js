@@ -41,12 +41,13 @@ class Board extends React.Component {
   //this.props.onClick
 
   renderGrid() {
+    // console.log('grid rendered')
     return this.props.squares.map((square, index) => {
       return (
         <Square
-          squareClicked = {this.props.squareClicked}
+          squaresClickedDuringTurn = {this.props.squaresClickedDuringTurn}
           //passes index back to Game
-          onClick = {() => this.props.onClick(index)}
+          onClick = {() => this.props.onClick(index, square)}
           exposedSquares = {this.props.exposedSquares}
           index = {index}
           square = {square}
@@ -75,14 +76,16 @@ class Game extends React.Component {
       numberOfTurns: 0,
       //maybe unnecessary. if Match isn't made, just switch to other player
       matchMade: true,
-      playerOneMatches: 0,
-      playerTwoMatches: 0,
+      playerAMatches: 0,
+      playerBMatches: 0,
       //2 each of 1,2,3,4
       squares: [],
+      //either index or both index and value, as array of arrays
       exposedSquares: [],
-      //array of last two things clicked
-      squareClicked: [],
+      //array of last two things clicked, either index or both index and value, as array of arrays
+      squaresClickedDuringTurn: [],
     }
+    //'this' is the game
     this.handleClick = this.handleClick.bind(this);
     this.fillSquares = this.fillSquares.bind(this);
   }
@@ -98,49 +101,106 @@ class Game extends React.Component {
         squares.push(chosenSquare);
         possibleSquares.splice(chosenIndex, 1);
       }
+      console.log(squares)
       this.setState({
         squares: squares,
       })
   }
 
-
-
-  handleClick(index) {
-
-    let squareClicked = this.state.squareClicked;
-    let numberOfTurns = this.state.numberOfTurns;
-    let exposedSquares = this.state.exposedSquares;
-    exposedSquares.push(index);
-    if (this.state.numberOfTurns < 2) {
-      numberOfTurns++;
-      squareClicked.push(index)
-    } else {
-      numberOfTurns = 0;
-      squareClicked = [];
-    }
-    this.setState({
-      squareClicked: squareClicked,
-      numberOfTurns: numberOfTurns,
-      exposedSquares: exposedSquares,
-    })
-    console.log(`squareClicked ${this.state.squareClicked}`)
-    console.log(`exposedSquares ${this.state.exposedSquares}`)
-    //increment the number of turns until 2
-    //if matchMade, set matchMade to true, increment the playerOneMatches or playerTwoMatches
-    //if not, set matchMade to false and change whichPlayer to 'B'
+  showCard(callback) {
+    setTimeout(callback, 2000)
   }
 
+  handleClick(index, square) {
+    //if the player is still taking his turn, exposed squares should be pushed into. Once the player is done, if no match is made, those squares should be taken out. If there is a match, those squares should stay
+
+    let squaresClickedDuringTurn = this.state.squaresClickedDuringTurn;
+    let numberOfTurns = this.state.numberOfTurns;
+    let playerAMatches = this.state.playerAMatches;
+    let playerBMatches = this.state.playerBMatches;
+    let whichPlayer = this.state.whichPlayer;
+    let exposedSquares = this.state.exposedSquares;
+    // let temporaryExposedSquares = this.state.exposedSquares;
+
+//need three separate actions to occur
+//if numberOfTurns is 0, do below
+//if numberOfTurns is 1,
+
+    
+    if (this.state.numberOfTurns === 0) {
+      numberOfTurns++;
+      squaresClickedDuringTurn.push([index, square])
+      exposedSquares.push(index);
+      this.setState({
+        numberOfTurns: numberOfTurns,
+        squaresClickedDuringTurn: squaresClickedDuringTurn,
+        exposedSquares: exposedSquares,
+      })
+
+      //once two cards have been flipped, check to see if the squares are the same. If so, increment matches of player, push into exposed squares, reset turns to 0, and reset squaresClickedDuringTurn to 0
+    } else {
+      // console.log('two cards flipped');
+      squaresClickedDuringTurn.push([index, square]);
+      // console.log(`squaresClickedDuringTurn ${squaresClickedDuringTurn}`)
+      exposedSquares.push(index);
+      if (squaresClickedDuringTurn[0][1] === squaresClickedDuringTurn[1][1]) {
+        console.log('thats a bingo');
+        //increment the matches of whoever's turn it is
+        this.state.whichPlayer==='A' ? playerAMatches++ : playerBMatches++;
+        //current player remains player if match is made
+        this.state.whichPLayer==='A' ? whichPlayer='A' : whichPlayer='B'
+        this.setState({
+          matchMade: true,
+          whichPlayer: whichPlayer,
+          playerAMatches: playerAMatches,
+          playerBMatches: playerBMatches,
+          numberOfTurns: 0,
+          squaresClickedDuringTurn: [],
+          exposedSquares: exposedSquares,
+        })
+        //if cards flipped didn't match
+      } else {
+        this.showCard(() => {
+          console.log('callback')
+          //switch the current player
+          this.state.whichPlayer==='A' ? whichPlayer='B' : whichPlayer='A';
+          //remove squares that were added
+          exposedSquares.pop();
+          exposedSquares.pop();
+          this.setState({
+            matchMade: false,
+            whichPlayer: whichPlayer,
+            numberOfTurns: 0,
+            squaresClickedDuringTurn: [],
+            //if no match, then reset exposedSquares to original state, removing the temporarily added squares
+            exposedSquares: exposedSquares,
+          })
+        })
+
+        this.setState({
+          matchMade: false,
+          whichPlayer: whichPlayer,
+          numberOfTurns: 0,
+          squaresClickedDuringTurn: [],
+          //if no match, then reset exposedSquares to original state, removing the temporarily added squares
+          exposedSquares: exposedSquares,
+        })
+      }
+    }
+  }
 
 
   render() {
     return (
       <div>
         <div className="board">
-          <Board squareClicked = {this.state.squareClicked} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
+          <Board matchMade = {this.state.matchMade} squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
         </div>
         <div className="game-info">
           <button onClick = {this.fillSquares}>Begin Game</button>
           {`Next Player: ${this.state.whichPlayer}`}
+          {`Player A Matches: ${this.state.playerAMatches}`}
+          {`Player B Matches: ${this.state.playerBMatches}`}
         </div>
       </div>
     )
