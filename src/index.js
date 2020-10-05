@@ -126,10 +126,10 @@ class Game extends React.Component {
 //if numberOfTurns is 0, do below
 //if numberOfTurns is 1,
 
-    
+
     if (this.state.numberOfTurns === 0) {
       numberOfTurns++;
-      squaresClickedDuringTurn.push([index, square])
+      squaresClickedDuringTurn.push(square)
       exposedSquares.push(index);
       this.setState({
         numberOfTurns: numberOfTurns,
@@ -140,15 +140,15 @@ class Game extends React.Component {
       //once two cards have been flipped, check to see if the squares are the same. If so, increment matches of player, push into exposed squares, reset turns to 0, and reset squaresClickedDuringTurn to 0
     } else {
       // console.log('two cards flipped');
-      squaresClickedDuringTurn.push([index, square]);
+      squaresClickedDuringTurn.push(square);
       // console.log(`squaresClickedDuringTurn ${squaresClickedDuringTurn}`)
       exposedSquares.push(index);
-      if (squaresClickedDuringTurn[0][1] === squaresClickedDuringTurn[1][1]) {
+      if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
         console.log('thats a bingo');
         //increment the matches of whoever's turn it is
         this.state.whichPlayer==='A' ? playerAMatches++ : playerBMatches++;
         //current player remains player if match is made
-        this.state.whichPLayer==='A' ? whichPlayer='A' : whichPlayer='B'
+        whichPlayer==='A' ? whichPlayer='A' : whichPlayer='B'
         this.setState({
           matchMade: true,
           whichPlayer: whichPlayer,
@@ -198,9 +198,11 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <button onClick = {this.fillSquares}>Begin Game</button>
-          {`Next Player: ${this.state.whichPlayer}`}
-          {`Player A Matches: ${this.state.playerAMatches}`}
-          {`Player B Matches: ${this.state.playerBMatches}`}
+          <ul>
+            <li>{`Next Player: ${this.state.whichPlayer}`}</li>
+            <li>{`Player A Matches: ${this.state.playerAMatches}`}</li>
+            <li>{`Player B Matches: ${this.state.playerBMatches}`}</li>
+          </ul>
         </div>
       </div>
     )
