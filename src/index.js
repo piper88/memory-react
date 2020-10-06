@@ -78,6 +78,7 @@ class Game extends React.Component {
       matchMade: true,
       playerAMatches: 0,
       playerBMatches: 0,
+      winner: null,
       //2 each of 1,2,3,4
       squares: [],
       //either index or both index and value, as array of arrays
@@ -111,8 +112,17 @@ class Game extends React.Component {
       })
   }
 
+//shows second card in turn momentarily when second card is not a match
   showCard(callback) {
     setTimeout(callback, 2000)
+  }
+
+  declareWinner() {
+    if (this.state.winner === 'A' || this.state.winner === 'B') {
+      return `The Winner is ${this.state.winner}`;
+    } else {
+      return `Result is a Draw`;
+    }
   }
 
   handleClick(index, square) {
@@ -193,7 +203,26 @@ class Game extends React.Component {
         })
       }
     }
+
+    //declare winner
+    if (exposedSquares.length === this.state.squares.length) {
+      let winner;
+      if (this.state.playerAMatches > this.state.playerBMatches) {
+        winner = 'A';
+      } else if (this.state.playerBMatches > this.state.playerAMatches) {
+        winner = 'B';
+      } else {
+        winner = 'DRAW';
+      }
+      this.setState({
+        winner: winner,
+      })
+    }
   }
+
+  //if there's a winner, declare the winner
+  //if there's no winner, empty
+  //if there's a draw, declare a draw
 
 
   render() {
@@ -209,6 +238,9 @@ class Game extends React.Component {
             <li>{`Player A Matches: ${this.state.playerAMatches}`}</li>
             <li>{`Player B Matches: ${this.state.playerBMatches}`}</li>
           </ul>
+          <div className="winner">
+            {this.state.winner ? this.declareWinner() : null }
+          </div>
         </div>
       </div>
     )
