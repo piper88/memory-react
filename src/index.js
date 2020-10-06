@@ -91,9 +91,13 @@ class Game extends React.Component {
   }
 
   fillSquares() {
+
     //choose random number between 0 and 7 (length of possibleSquares -1), add that number to the empty array, and then remove that number out of the possibleSquares array, and decrement possibleSquares.length
       let possibleSquares = [1,1,2,2,3,3,4,4];
       let squares = this.state.squares;
+      //if squares have already been filled, return
+      if (squares.length) return;
+
       for (let i = 7; i > -1; --i) {
         let chosenIndex = Math.floor(Math.random() * i);
 
@@ -120,12 +124,14 @@ class Game extends React.Component {
     let playerBMatches = this.state.playerBMatches;
     let whichPlayer = this.state.whichPlayer;
     let exposedSquares = this.state.exposedSquares;
-    // let temporaryExposedSquares = this.state.exposedSquares;
 
-//need three separate actions to occur
-//if numberOfTurns is 0, do below
-//if numberOfTurns is 1,
-
+    //if the index is already in the exposedSquares, return out of handleClick function
+    for (let i = 0; i < exposedSquares.length; ++i) {
+      if (exposedSquares[i] === index) {
+        console.log('duplicate');
+        return;
+      }
+    }
 
     if (this.state.numberOfTurns === 0) {
       numberOfTurns++;
