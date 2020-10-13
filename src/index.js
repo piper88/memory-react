@@ -85,6 +85,7 @@ class PlayerForm extends React.Component {
     this.state = {
       playerA: '',
       playerB: '',
+      showForm: true,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -100,32 +101,42 @@ class PlayerForm extends React.Component {
   handleSubmit(event) {
     this.props.setPlayerNames(this.state.playerA, this.state.playerB);
     event.preventDefault();
+    this.setState({
+      showForm: false,
+    })
   }
 
   render() {
-    return (
-      <form onSubmit = {this.handleSubmit}>
-        <label>
-          Player A:
-          <input
-          type="text"
-          name='playerA'
-          value = {this.state.playerA}
-          onChange = {this.handleChange}/>
-        </label>
-        <label>
-          Player B:
-          <input
-          type="text"
-          name='playerB'
-          value = {this.state.playerB}
-          onChange = {this.handleChange}/>
-        </label>
-        <button>
-          Submit
-        </button>
-      </form>
-    )
+    if (this.state.showForm) {
+      return (
+        <form onSubmit = {this.handleSubmit}>
+          <label>
+            Player A:
+            <input
+            type="text"
+            name='playerA'
+            value = {this.state.playerA}
+            onChange = {this.handleChange}/>
+          </label>
+          <label>
+            Player B:
+            <input
+            type="text"
+            name='playerB'
+            value = {this.state.playerB}
+            onChange = {this.handleChange}/>
+          </label>
+          <button>
+            Submit
+          </button>
+        </form>
+      )
+    } else {
+      return (
+        null
+      )
+    }
+
   }
 }
 
@@ -135,7 +146,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      whichPlayer: 'GodKing',
+      whichPlayer: '',
       numberOfTurns: 0,
       playerAMatches: 0,
       playerBMatches: 0,
@@ -156,11 +167,10 @@ class Game extends React.Component {
   }
 
   setPlayerNames(playerAName, playerBName) {
-    console.log(`playerA ${playerAName}`)
-    console.log(`playerB ${playerBName}`)
     this.setState({
       playerAName: playerAName,
       playerBName: playerBName,
+      whichPlayer: 'A',
     })
   }
 
@@ -180,7 +190,6 @@ class Game extends React.Component {
         squares.push(chosenSquare);
         possibleSquares.splice(chosenIndex, 1);
       }
-      console.log(squares)
       this.setState({
         squares: squares,
       })
@@ -189,9 +198,9 @@ class Game extends React.Component {
   declareWinner() {
     let winner;
     if (this.state.playerAMatches > this.state.playerBMatches) {
-      winner = 'The Winner is: GodKing';
+      winner = `The Winner is ${this.state.playerAName}`;
     } else if (this.state.playerBMatches > this.state.playerAMatches) {
-      winner = 'The Winner is: B';
+      winner = `The Winner is ${this.state.playerBName}`;
     } else {
       winner = 'DRAW';
     }
@@ -232,9 +241,9 @@ class Game extends React.Component {
       if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
         console.log('thats a bingo');
         //increment the matches of whoever's turn it is
-        this.state.whichPlayer==='GodKing' ? playerAMatches++ : playerBMatches++;
+        this.state.whichPlayer==='A' ? playerAMatches++ : playerBMatches++;
         //current player remains player if match is made
-        whichPlayer==='GodKing' ? whichPlayer='GodKing' : whichPlayer='B'
+        whichPlayer==='A' ? whichPlayer='A' : whichPlayer='B'
         this.setState({
           whichPlayer: whichPlayer,
           playerAMatches: playerAMatches,
@@ -254,7 +263,7 @@ class Game extends React.Component {
         })
         //after 1500 ms, remove the unmatched cards from exposedSquares and update the state
         setTimeout(() => {
-          this.state.whichPlayer==='GodKing' ? whichPlayer='B' : whichPlayer='GodKing';
+          this.state.whichPlayer==='A' ? whichPlayer='B' : whichPlayer='A';
           //remove squares that were added
           exposedSquares.pop();
           exposedSquares.pop();
@@ -276,7 +285,7 @@ class Game extends React.Component {
         <div>
           <button onClick = {this.fillSquares}>Begin Game</button>
             <ul>
-              <li>{`Next Player: ${this.state.whichPlayer}`}</li>
+              <li>{`Next Player: ${this.state.playerAName}`}</li>
               <li>{`${this.state.playerAName}'s matches: ${this.state.playerAMatches}`}</li>
               <li>{`${this.state.playerBName}'s matches: ${this.state.playerBMatches}`}</li>
             </ul>
