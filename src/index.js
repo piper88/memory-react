@@ -77,6 +77,54 @@ class Board extends React.Component {
   }
 }
 
+class PlayerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playerA: '',
+      playerB: '',
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    //event.target is the input element
+    event.target.name==='playerA' ? this.setState({playerA: event.target.value}) : this.setState({playerB: event.target.value});
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit = {this.handleSubmit}>
+        <label>
+          Player A:
+          <input
+          type="text"
+          name='playerA'
+          value = {this.state.playerA}
+          onChange = {this.handleChange}/>
+        </label>
+        <label>
+          Player B:
+          <input
+          type="text"
+          name='playerB'
+          value = {this.state.playerB}
+          onChange = {this.handleChange}/>
+        </label>
+        <button>
+          Submit
+        </button>
+      </form>
+    )
+  }
+}
+
 
 //game should keep track of the state, pass it down
 class Game extends React.Component {
@@ -213,6 +261,7 @@ class Game extends React.Component {
         <div className="board">
           <Board matchMade = {this.state.matchMade} squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
         </div>
+        <PlayerForm/>
         <div className="game-info">
           <button onClick = {this.fillSquares}>Begin Game</button>
           <ul>
