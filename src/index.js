@@ -1,3 +1,13 @@
+import symbol1 from './images/1.svg';
+import symbol2 from './images/2.svg';
+import symbol3 from './images/3.svg';
+import symbol4 from './images/4.svg';
+import symbol5 from './images/5.svg';
+import symbol6 from './images/6.svg';
+import symbol7 from './images/7.svg';
+import symbol8 from './images/8.svg';
+import symbol9 from './images/9.svg';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
@@ -15,9 +25,10 @@ class Square extends React.Component {
     return this.props.exposedSquares.map((index) => {
       //if index is equal to this.props.index, then button should show this.props.square
       if (index === this.props.index) {
-        return this.props.square
+        //did not work to just 'return this.props.square', and then in render function, do <img src={this.showSquares()}/>. The first square clicked would show, but never the second.
+        return <img src={this.props.square} alt={""}/>;
       } else {
-        return null
+        return null;
       }
     })
   }
@@ -46,7 +57,7 @@ class Board extends React.Component {
       return (
         <Square
           squaresClickedDuringTurn = {this.props.squaresClickedDuringTurn}
-          //passes index back to Game
+          //passes index and value of square clicked back to Game
           onClick = {() => this.props.onClick(index, square)}
           exposedSquares = {this.props.exposedSquares}
           index = {index}
@@ -72,18 +83,16 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      whichPlayer: 'A',
+      whichPlayer: 'GodKing',
       numberOfTurns: 0,
-      //maybe unnecessary. if Match isn't made, just switch to other player
-      matchMade: true,
       playerAMatches: 0,
       playerBMatches: 0,
       winner: null,
-      //2 each of 1,2,3,4
+      //2 each of 1,2,3,4, etc...
       squares: [],
-      //either index or both index and value, as array of arrays
+      //array of indexes of squares that should be visible
       exposedSquares: [],
-      //array of last two things clicked, either index or both index and value, as array of arrays
+      //array of values of last two squares clicked. Used to compare for matches
       squaresClickedDuringTurn: [],
     }
     //'this' is the game
@@ -94,12 +103,12 @@ class Game extends React.Component {
   fillSquares() {
 
     //choose random number between 0 and 7 (length of possibleSquares -1), add that number to the empty array, and then remove that number out of the possibleSquares array, and decrement possibleSquares.length
-      let possibleSquares = [1,1,2,2,3,3,4,4];
+      let possibleSquares = [symbol1,symbol1,symbol2,symbol2,symbol3,symbol3,symbol4,symbol4,symbol5,symbol5,symbol6,symbol6,symbol7,symbol7,symbol8,symbol8,symbol9,symbol9];
       let squares = this.state.squares;
       //if squares have already been filled, return
       if (squares.length) return;
 
-      for (let i = 7; i > -1; --i) {
+      for (let i = 17; i > -1; --i) {
         let chosenIndex = Math.floor(Math.random() * i);
 
         let chosenSquare = possibleSquares[chosenIndex];
@@ -112,32 +121,19 @@ class Game extends React.Component {
       })
   }
 
-//shows second card in turn momentarily when second card is not a match
-  showCard(callback) {
-    setTimeout(callback, 1500)
-  }
-
   declareWinner() {
-    console.log(`playerAMatches ${this.state.playerAMatches}`)
-    console.log(`playerBMatches ${this.state.playerBMatches}`)
     let winner;
     if (this.state.playerAMatches > this.state.playerBMatches) {
-      // return `Winner is A`
-      winner = 'The Winner is: A';
+      winner = 'The Winner is: GodKing';
     } else if (this.state.playerBMatches > this.state.playerAMatches) {
-      // return 'Winner is B';
       winner = 'The Winner is: B';
     } else {
       winner = 'DRAW';
     }
-    this.setState({
-      winner: winner,
-    })
-
+    return winner;
   }
 
   handleClick(index, square) {
-    //if the player is still taking his turn, exposed squares should be pushed into. Once the player is done, if no match is made, those squares should be taken out. If there is a match, those squares should stay
 
     let squaresClickedDuringTurn = this.state.squaresClickedDuringTurn;
     let numberOfTurns = this.state.numberOfTurns;
@@ -146,10 +142,9 @@ class Game extends React.Component {
     let whichPlayer = this.state.whichPlayer;
     let exposedSquares = this.state.exposedSquares;
 
-    //if the index is already in the exposedSquares, return out of handleClick function
+    //if the index is already in the exposedSquares (e.g. if square has already been clicked) return out of handleClick function
     for (let i = 0; i < exposedSquares.length; ++i) {
       if (exposedSquares[i] === index) {
-        console.log('duplicate');
         return;
       }
     }
@@ -166,18 +161,16 @@ class Game extends React.Component {
 
       //once two cards have been flipped, check to see if the squares are the same. If so, increment matches of player, push into exposed squares, reset turns to 0, and reset squaresClickedDuringTurn to 0
     } else {
-      // console.log('two cards flipped');
       squaresClickedDuringTurn.push(square);
-      // console.log(`squaresClickedDuringTurn ${squaresClickedDuringTurn}`)
       exposedSquares.push(index);
+      //if the cards were a match
       if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
         console.log('thats a bingo');
         //increment the matches of whoever's turn it is
-        this.state.whichPlayer==='A' ? playerAMatches++ : playerBMatches++;
+        this.state.whichPlayer==='GodKing' ? playerAMatches++ : playerBMatches++;
         //current player remains player if match is made
-        whichPlayer==='A' ? whichPlayer='A' : whichPlayer='B'
+        whichPlayer==='GodKing' ? whichPlayer='GodKing' : whichPlayer='B'
         this.setState({
-          matchMade: true,
           whichPlayer: whichPlayer,
           playerAMatches: playerAMatches,
           playerBMatches: playerBMatches,
@@ -187,46 +180,34 @@ class Game extends React.Component {
         })
         //if cards flipped didn't match
       } else {
-        this.showCard(() => {
-          console.log('callback')
-          //switch the current player
-          this.state.whichPlayer==='A' ? whichPlayer='B' : whichPlayer='A';
+        //show card that was flipped for 1500 ms
+        this.setState({
+          whichPlayer: whichPlayer,
+          numberOfTurns: 0,
+          squaresClickedDuringTurn: [],
+          exposedSquares: exposedSquares,
+        })
+        //after 1500 ms, remove the unmatched cards from exposedSquares and update the state
+        setTimeout(() => {
+          this.state.whichPlayer==='GodKing' ? whichPlayer='B' : whichPlayer='GodKing';
           //remove squares that were added
           exposedSquares.pop();
           exposedSquares.pop();
           this.setState({
-            matchMade: false,
             whichPlayer: whichPlayer,
             numberOfTurns: 0,
             squaresClickedDuringTurn: [],
             //if no match, then reset exposedSquares to original state, removing the temporarily added squares
             exposedSquares: exposedSquares,
           })
-        })
-
-        this.setState({
-          matchMade: false,
-          whichPlayer: whichPlayer,
-          numberOfTurns: 0,
-          squaresClickedDuringTurn: [],
-          //if no match, then reset exposedSquares to original state, removing the temporarily added squares
-          exposedSquares: exposedSquares,
-        })
+        }, 1500)
       }
-    }
-
-    //declare winner
-    if (exposedSquares.length === this.state.squares.length) {
-      this.declareWinner();
     }
   }
 
-  //if there's a winner, declare the winner
-  //if there's no winner, empty
-  //if there's a draw, declare a draw
-
 
   render() {
+
     return (
       <div>
         <div className="board">
@@ -236,11 +217,11 @@ class Game extends React.Component {
           <button onClick = {this.fillSquares}>Begin Game</button>
           <ul>
             <li>{`Next Player: ${this.state.whichPlayer}`}</li>
-            <li>{`Player A Matches: ${this.state.playerAMatches}`}</li>
+            <li>{`Player GodKing Matches: ${this.state.playerAMatches}`}</li>
             <li>{`Player B Matches: ${this.state.playerBMatches}`}</li>
           </ul>
           <div className="winner">
-            {this.state.winner}
+            {this.state.exposedSquares.length === this.state.squares.length && this.state.squares.length > 0 ? this.declareWinner() : null}
           </div>
         </div>
       </div>
