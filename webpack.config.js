@@ -12,4 +12,17 @@ module.exports = {
  query  : {
    presets:[ 'react', 'es2015' ]
  },
+ rules: [
+    {
+        test: /\.(png|jpg|gif|svg)$/i,
+        use: [
+            {
+                loader: 'svg-url-loader',
+                options: {
+                    limit: 10000,
+                },
+            },
+        ],
+    },
+],
 };
