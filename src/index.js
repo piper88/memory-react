@@ -77,13 +77,15 @@ class Board extends React.Component {
   }
 }
 
+
+//A controlled component is one in which react controls the values of form inputs.
 class PlayerForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       playerA: '',
       playerB: '',
-    };
+    }
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -91,10 +93,12 @@ class PlayerForm extends React.Component {
 
   handleChange(event) {
     //event.target is the input element
+
     event.target.name==='playerA' ? this.setState({playerA: event.target.value}) : this.setState({playerB: event.target.value});
   }
 
   handleSubmit(event) {
+    this.props.setPlayerNames(this.state.playerA, this.state.playerB);
     event.preventDefault();
   }
 
@@ -135,6 +139,8 @@ class Game extends React.Component {
       numberOfTurns: 0,
       playerAMatches: 0,
       playerBMatches: 0,
+      playerAName: '',
+      playerBName: '',
       winner: null,
       //2 each of 1,2,3,4, etc...
       squares: [],
@@ -146,9 +152,20 @@ class Game extends React.Component {
     //'this' is the game
     this.handleClick = this.handleClick.bind(this);
     this.fillSquares = this.fillSquares.bind(this);
+    this.setPlayerNames = this.setPlayerNames.bind(this);
+  }
+
+  setPlayerNames(playerAName, playerBName) {
+    console.log(`playerA ${playerAName}`)
+    console.log(`playerB ${playerBName}`)
+    this.setState({
+      playerAName: playerAName,
+      playerBName: playerBName,
+    })
   }
 
   fillSquares() {
+    console.log(`this.state.playerA ${this.state.playerAName}`)
 
     //choose random number between 0 and 7 (length of possibleSquares -1), add that number to the empty array, and then remove that number out of the possibleSquares array, and decrement possibleSquares.length
       let possibleSquares = [symbol1,symbol1,symbol2,symbol2,symbol3,symbol3,symbol4,symbol4,symbol5,symbol5,symbol6,symbol6,symbol7,symbol7,symbol8,symbol8,symbol9,symbol9];
@@ -253,6 +270,25 @@ class Game extends React.Component {
     }
   }
 
+  showGameInfo() {
+    if (this.state.playerAName.length) {
+      return (
+        <div>
+          <button onClick = {this.fillSquares}>Begin Game</button>
+            <ul>
+              <li>{`Next Player: ${this.state.whichPlayer}`}</li>
+              <li>{`${this.state.playerAName}'s matches: ${this.state.playerAMatches}`}</li>
+              <li>{`${this.state.playerBName}'s matches: ${this.state.playerBMatches}`}</li>
+            </ul>
+            <div className="winner">
+              {this.state.exposedSquares.length === this.state.squares.length && this.state.squares.length > 0 ? this.declareWinner() : null}
+            </div>
+          </div>
+      )
+    } else {
+      return null;
+    }
+  }
 
   render() {
 
@@ -261,17 +297,9 @@ class Game extends React.Component {
         <div className="board">
           <Board matchMade = {this.state.matchMade} squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
         </div>
-        <PlayerForm/>
+        <PlayerForm setPlayerNames= {this.setPlayerNames}/>
         <div className="game-info">
-          <button onClick = {this.fillSquares}>Begin Game</button>
-          <ul>
-            <li>{`Next Player: ${this.state.whichPlayer}`}</li>
-            <li>{`Player GodKing Matches: ${this.state.playerAMatches}`}</li>
-            <li>{`Player B Matches: ${this.state.playerBMatches}`}</li>
-          </ul>
-          <div className="winner">
-            {this.state.exposedSquares.length === this.state.squares.length && this.state.squares.length > 0 ? this.declareWinner() : null}
-          </div>
+          {this.showGameInfo()}
         </div>
       </div>
     )
