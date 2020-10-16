@@ -59,6 +59,7 @@ class Board extends React.Component {
           squaresClickedDuringTurn = {this.props.squaresClickedDuringTurn}
           //passes index and value of square clicked back to Game
           onClick = {() => this.props.onClick(index, square)}
+          disableClick = {this.props.disableClick}
           exposedSquares = {this.props.exposedSquares}
           index = {index}
           square = {square}
@@ -78,15 +79,80 @@ class Board extends React.Component {
 }
 
 
+//A controlled component is one in which react controls the values of form inputs.
+class PlayerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playerA: '',
+      playerB: '',
+      showForm: true,
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    //event.target is the input element
+
+    event.target.name==='playerA' ? this.setState({playerA: event.target.value}) : this.setState({playerB: event.target.value});
+  }
+
+  handleSubmit(event) {
+    this.props.setPlayerNames(this.state.playerA, this.state.playerB);
+    event.preventDefault();
+    this.setState({
+      showForm: false,
+    })
+  }
+
+  render() {
+    if (this.state.showForm) {
+      return (
+        <form onSubmit = {this.handleSubmit}>
+          <label>
+            Player A:
+            <input
+            type="text"
+            name='playerA'
+            value = {this.state.playerA}
+            onChange = {this.handleChange}/>
+          </label>
+          <label>
+            Player B:
+            <input
+            type="text"
+            name='playerB'
+            value = {this.state.playerB}
+            onChange = {this.handleChange}/>
+          </label>
+          <button>
+            Submit
+          </button>
+        </form>
+      )
+    } else {
+      return (
+        null
+      )
+    }
+
+  }
+}
+
+
 //game should keep track of the state, pass it down
 class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      whichPlayer: 'GodKing',
+      whichPlayer: '',
       numberOfTurns: 0,
       playerAMatches: 0,
       playerBMatches: 0,
+      playerAName: '',
+      playerBName: '',
       winner: null,
       //2 each of 1,2,3,4, etc...
       squares: [],
@@ -94,13 +160,24 @@ class Game extends React.Component {
       exposedSquares: [],
       //array of values of last two squares clicked. Used to compare for matches
       squaresClickedDuringTurn: [],
+      disableClick: false,
     }
     //'this' is the game
     this.handleClick = this.handleClick.bind(this);
     this.fillSquares = this.fillSquares.bind(this);
+    this.setPlayerNames = this.setPlayerNames.bind(this);
+  }
+
+  setPlayerNames(playerAName, playerBName) {
+    this.setState({
+      playerAName: playerAName,
+      playerBName: playerBName,
+      whichPlayer: 'A',
+    })
   }
 
   fillSquares() {
+    console.log(`this.state.playerA ${this.state.playerAName}`)
 
     //choose random number between 0 and 7 (length of possibleSquares -1), add that number to the empty array, and then remove that number out of the possibleSquares array, and decrement possibleSquares.length
       let possibleSquares = [symbol1,symbol1,symbol2,symbol2,symbol3,symbol3,symbol4,symbol4,symbol5,symbol5,symbol6,symbol6,symbol7,symbol7,symbol8,symbol8,symbol9,symbol9];
@@ -115,7 +192,6 @@ class Game extends React.Component {
         squares.push(chosenSquare);
         possibleSquares.splice(chosenIndex, 1);
       }
-      console.log(squares)
       this.setState({
         squares: squares,
       })
@@ -124,9 +200,9 @@ class Game extends React.Component {
   declareWinner() {
     let winner;
     if (this.state.playerAMatches > this.state.playerBMatches) {
-      winner = 'The Winner is: GodKing';
+      winner = `The Winner is ${this.state.playerAName}`;
     } else if (this.state.playerBMatches > this.state.playerAMatches) {
-      winner = 'The Winner is: B';
+      winner = `The Winner is ${this.state.playerBName}`;
     } else {
       winner = 'DRAW';
     }
@@ -167,9 +243,9 @@ class Game extends React.Component {
       if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
         console.log('thats a bingo');
         //increment the matches of whoever's turn it is
-        this.state.whichPlayer==='GodKing' ? playerAMatches++ : playerBMatches++;
+        this.state.whichPlayer==='A' ? playerAMatches++ : playerBMatches++;
         //current player remains player if match is made
-        whichPlayer==='GodKing' ? whichPlayer='GodKing' : whichPlayer='B'
+        whichPlayer==='A' ? whichPlayer='A' : whichPlayer='B'
         this.setState({
           whichPlayer: whichPlayer,
           playerAMatches: playerAMatches,
@@ -186,10 +262,12 @@ class Game extends React.Component {
           numberOfTurns: 0,
           squaresClickedDuringTurn: [],
           exposedSquares: exposedSquares,
+          disableClick: true,
         })
+
         //after 1500 ms, remove the unmatched cards from exposedSquares and update the state
         setTimeout(() => {
-          this.state.whichPlayer==='GodKing' ? whichPlayer='B' : whichPlayer='GodKing';
+          this.state.whichPlayer==='A' ? whichPlayer='B' : whichPlayer='A';
           //remove squares that were added
           exposedSquares.pop();
           exposedSquares.pop();
@@ -199,30 +277,43 @@ class Game extends React.Component {
             squaresClickedDuringTurn: [],
             //if no match, then reset exposedSquares to original state, removing the temporarily added squares
             exposedSquares: exposedSquares,
+            disableClick: false,
           })
         }, 1500)
       }
     }
   }
 
+  showGameInfo() {
+    if (this.state.playerAName.length) {
+      return (
+        <div>
+          <button onClick = {this.fillSquares}>Begin Game</button>
+            <ul>
+              <li>{`Next Player: ${this.state.playerAName}`}</li>
+              <li>{`${this.state.playerAName}'s matches: ${this.state.playerAMatches}`}</li>
+              <li>{`${this.state.playerBName}'s matches: ${this.state.playerBMatches}`}</li>
+            </ul>
+            <div className="winner">
+              {this.state.exposedSquares.length === this.state.squares.length && this.state.squares.length > 0 ? this.declareWinner() : null}
+            </div>
+          </div>
+      )
+    } else {
+      return null;
+    }
+  }
 
   render() {
 
     return (
-      <div>
+      <div style={{pointerEvents:  this.state.disableClick ? 'none' : 'auto'}}>
         <div className="board">
-          <Board matchMade = {this.state.matchMade} squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
+          <Board disableClick={this.state.disableClick} matchMade = {this.state.matchMade} squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
         </div>
+        <PlayerForm setPlayerNames= {this.setPlayerNames}/>
         <div className="game-info">
-          <button onClick = {this.fillSquares}>Begin Game</button>
-          <ul>
-            <li>{`Next Player: ${this.state.whichPlayer}`}</li>
-            <li>{`Player GodKing Matches: ${this.state.playerAMatches}`}</li>
-            <li>{`Player B Matches: ${this.state.playerBMatches}`}</li>
-          </ul>
-          <div className="winner">
-            {this.state.exposedSquares.length === this.state.squares.length && this.state.squares.length > 0 ? this.declareWinner() : null}
-          </div>
+          {this.showGameInfo()}
         </div>
       </div>
     )
@@ -230,6 +321,6 @@ class Game extends React.Component {
 }
 
 ReactDOM.render(
-  <Game/>,
+  <Game />,
   document.getElementById('root')
 )
