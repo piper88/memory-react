@@ -59,6 +59,7 @@ class Board extends React.Component {
           squaresClickedDuringTurn = {this.props.squaresClickedDuringTurn}
           //passes index and value of square clicked back to Game
           onClick = {() => this.props.onClick(index, square)}
+          disableClick = {this.props.disableClick}
           exposedSquares = {this.props.exposedSquares}
           index = {index}
           square = {square}
@@ -159,6 +160,7 @@ class Game extends React.Component {
       exposedSquares: [],
       //array of values of last two squares clicked. Used to compare for matches
       squaresClickedDuringTurn: [],
+      disableClick: false,
     }
     //'this' is the game
     this.handleClick = this.handleClick.bind(this);
@@ -260,7 +262,9 @@ class Game extends React.Component {
           numberOfTurns: 0,
           squaresClickedDuringTurn: [],
           exposedSquares: exposedSquares,
+          disableClick: true,
         })
+
         //after 1500 ms, remove the unmatched cards from exposedSquares and update the state
         setTimeout(() => {
           this.state.whichPlayer==='A' ? whichPlayer='B' : whichPlayer='A';
@@ -273,6 +277,7 @@ class Game extends React.Component {
             squaresClickedDuringTurn: [],
             //if no match, then reset exposedSquares to original state, removing the temporarily added squares
             exposedSquares: exposedSquares,
+            disableClick: false,
           })
         }, 1500)
       }
@@ -302,9 +307,9 @@ class Game extends React.Component {
   render() {
 
     return (
-      <div>
+      <div style={{pointerEvents:  this.state.disableClick ? 'none' : 'auto'}}>
         <div className="board">
-          <Board matchMade = {this.state.matchMade} squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
+          <Board disableClick={this.state.disableClick} matchMade = {this.state.matchMade} squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn} squares = {this.state.squares} exposedSquares ={this.state.exposedSquares} whichPlayer = {this.state.whichPlayer} onClick = {this.handleClick}/>
         </div>
         <PlayerForm setPlayerNames= {this.setPlayerNames}/>
         <div className="game-info">
@@ -316,6 +321,6 @@ class Game extends React.Component {
 }
 
 ReactDOM.render(
-  <Game/>,
+  <Game />,
   document.getElementById('root')
 )
