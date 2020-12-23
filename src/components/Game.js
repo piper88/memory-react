@@ -180,9 +180,7 @@ class Game extends React.Component {
 
         <div className="board">
           <Board
-          disableClick={this.state.disableClick}
           matchMade = {this.state.matchMade}
-          squaresClickedDuringTurn = {this.state.squaresClickedDuringTurn}
           squares = {this.state.squares}
           exposedSquares ={this.state.exposedSquares}
           whichPlayer = {this.state.whichPlayer}
