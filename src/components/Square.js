@@ -6,7 +6,7 @@ const Square = props => {
     console.log('showSquares');
     return props.exposedSquares.map(index => {
       if (index === props.index) {
-        return <img src={props.square} alt={""}/>
+        return <img src={props.square} alt={""} key={props.index}/>
       } else {
         return null;
       }
