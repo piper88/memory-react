@@ -55,7 +55,7 @@ class Game extends React.Component {
       //if squares have already been filled, return
       if (squares.length) return;
 
-      for (let i = 17; i > -1; --i) {
+      for (let i = possibleSquares.length-1; i > -1; --i) {
         //choose random number as the index
         let chosenIndex = Math.floor(Math.random() * i);
         //choose the square at theat index and push into squares array
@@ -180,7 +180,6 @@ class Game extends React.Component {
 
         <div className="board">
           <Board
-          matchMade = {this.state.matchMade}
           squares = {this.state.squares}
           exposedSquares ={this.state.exposedSquares}
           whichPlayer = {this.state.whichPlayer}
