@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Board from './Board.js';
 import PlayerForm from './PlayerForm.js';
+import GameInfo from './GameInfo.js'
 
 import img1 from '../images/1.svg';
 import img2 from '../images/2.svg';
@@ -13,6 +14,7 @@ import img8 from '../images/8.svg';
 import img9 from '../images/9.svg';
 
 const Game = () => {
+  const [showForm, setShowForm] = useState(true);
   const [whichPlayer, setWhichPlayer] = useState('');
   let [numberOfTurns, setNumberOfTurns] = useState(0);
   const [playerA, setPlayerA] = useState({
@@ -31,21 +33,10 @@ const Game = () => {
   const setPlayerNames = (playerAName, playerBName) => {
     setPlayerA({...playerA, name: playerAName});
     setPlayerB({...playerB, name: playerBName});
+    setShowForm(false);
   }
 
-  const declareWinner = () => {
-    let winner;
-    if (playerA.matches > playerB.matches) {
-      winner = `The Winner is: ${playerA.name}`
-    } else if (playerB.matches > playerA.matches) {
-      winner = `The Winner is: ${playerB.name}`
-    } else {
-      winner = 'DRAW';
-    }
-    return winner;
-  }
-
-  function fillSquares() {
+  const fillSquares = ()  => {
     console.log(playerA);
     let possibleSquares = [img1,img1,img2,img2,img3,img3,img4,img4,img5,img5,img6,img6,img7,img7,img8,img8,img9,img9];
     let squares = [];
@@ -115,49 +106,36 @@ const handleClick = (index, square) => {
     }
   }
 
-  const showGameInfo = () => {
-    if (playerA.name.length) {
-      return (
-        <div>
-          <button onClick = {fillSquares.bind(this)}>Begin Game</button>
-            <ul>
-              <li>{`Next Player: ${playerA.name}`}</li>
-              <li>{`${playerA.name}'s matches: ${playerA.matches}`}</li>
-              <li>{`${playerB.name}'s matches: ${playerB.matches}`}</li>
-            </ul>
-            <div className="winner">
-              {exposedSquares.length === gameSquares.length && gameSquares.length > 0 ? declareWinner() : null}
-            </div>
-          </div>
-      )
-    } else {
-      return null;
-    }
-  }
+if (showForm) {
+  return (
+    <PlayerForm
+    setPlayerNames= {setPlayerNames.bind(this)}
+    />
+  )
+} else {
+    return (
+      <div style={{pointerEvents: disableClick ? 'none' : 'auto'}}>
 
-return (
-  <div style={{pointerEvents: disableClick ? 'none' : 'auto'}}>
-
-    <div className="board">
+      <div className="board">
       <Board
       squares = {gameSquares}
       exposedSquares ={exposedSquares}
       whichPlayer = {whichPlayer}
       onClick = {handleClick.bind(this)}/>
-    </div>
+      </div>
 
-    <PlayerForm
-    setPlayerNames= {setPlayerNames.bind(this)}
-    />
+      <div className="game-info">
+      <GameInfo
+      playerA = {playerA}
+      playerB = {playerB}
+      exposedSquares = {exposedSquares}
+      fillSquares = {fillSquares.bind(this)}
+      gameSquares = {gameSquares}/>
+      </div>
 
-    <div className="game-info">
-      {showGameInfo()}
-    </div>
-
-  </div>
-)
-
-
+      </div>
+    )
+  }
 };
 
 export default Game;

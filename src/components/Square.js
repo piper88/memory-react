@@ -3,8 +3,6 @@ import React from 'react'
 const Square = props => {
 
   function showSquares() {
-    // console.log('showSquares');
-    // console.log(props.exposedSquares);
     return props.exposedSquares.map(index => {
       if (index === props.index) {
         return <img src={props.square} alt={""} key={props.index}/>
