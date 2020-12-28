@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useState, useEffect }from 'react';
 
 //A controlled component is one in which react controls the values of form inputs.
 
@@ -18,6 +18,12 @@ const PlayerForm = props => {
     event.preventDefault();
     setShowForm(false);
   }
+
+  useEffect(() => {
+    return () => {
+      console.log('component did unmount');
+    };
+  }, []);
 
   if (showForm) {
     return (
