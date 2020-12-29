@@ -1,202 +1,152 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Board from './Board.js';
 import PlayerForm from './PlayerForm.js';
+import GameInfo from './GameInfo.js';
+import Winner from './Winner.js';
 
-import symbol1 from '../images/1.svg';
-import symbol2 from '../images/2.svg';
-import symbol3 from '../images/3.svg';
-import symbol4 from '../images/4.svg';
-import symbol5 from '../images/5.svg';
-import symbol6 from '../images/6.svg';
-import symbol7 from '../images/7.svg';
-import symbol8 from '../images/8.svg';
-import symbol9 from '../images/9.svg';
+import img1 from '../images/1.svg';
+import img2 from '../images/2.svg';
+import img3 from '../images/3.svg';
+import img4 from '../images/4.svg';
+import img5 from '../images/5.svg';
+import img6 from '../images/6.svg';
+import img7 from '../images/7.svg';
+import img8 from '../images/8.svg';
+import img9 from '../images/9.svg';
 
-//game should keep track of the state, pass it down
-class Game extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      whichPlayer: '',
-      numberOfTurns: 0,
-      playerAMatches: 0,
-      playerBMatches: 0,
-      playerAName: '',
-      playerBName: '',
-      winner: null,
-      //2 each of 1,2,3,4, etc...
-      //Keeps track of what symbols are where
-      squares: [],
-      //array of indexes of squares that should be visible
-      exposedSquares: [],
-      //array of values of last two squares clicked. Used to compare for matches
-      squaresClickedDuringTurn: [],
-      disableClick: false,
+const Game = () => {
+  const [showForm, setShowForm] = useState(true);
+  const [whichPlayer, setWhichPlayer] = useState('');
+  let [numberOfTurns, setNumberOfTurns] = useState(0);
+  const [playerA, setPlayerA] = useState({
+    name: '',
+    matches: 0,
+  });
+  const [playerB, setPlayerB] = useState({
+    name: '',
+    matches: 0,
+  });
+  const [gameSquares, setGameSquares] = useState([]);
+  const [exposedSquares, setExposedSquares] = useState([])
+  const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
+  const [disableClick, setDisableClick] = useState(false);
+  const [winner, setWinner] = useState(false);
+
+  const setPlayerNames = (playerAName, playerBName) => {
+    setPlayerA({...playerA, name: playerAName});
+    setPlayerB({...playerB, name: playerBName});
+    setShowForm(false);
+  }
+
+  const fillSquares = ()  => {
+    console.log(playerA);
+    let possibleSquares = [img1,img1,img2,img2,img3,img3,img4,img4,img5,img5,img6,img6,img7,img7,img8,img8,img9,img9];
+    let squares = [];
+
+    for (let i = possibleSquares.length-1; i > -1; --i) {
+      //choose random number as the index
+      let chosenIndex = Math.floor(Math.random() * i);
+      //choose the square at that index and push into squares array
+      let chosenSquare = possibleSquares[chosenIndex];
+      squares.push(chosenSquare);
+      //remove that square, since it's already been used
+      possibleSquares.splice(chosenIndex, 1);
     }
-
-    this.handleClick = this.handleClick.bind(this);
-    this.fillSquares = this.fillSquares.bind(this);
-    this.setPlayerNames = this.setPlayerNames.bind(this);
+    setGameSquares(squares);
   }
 
-  setPlayerNames(playerAName, playerBName) {
-    this.setState({
-      playerAName: playerAName,
-      playerBName: playerBName,
-      whichPlayer: 'A',
-    })
-  }
-
-  fillSquares() {
-
-    //choose random number between 0 and 7 (length of possibleSquares -1), add that number to the empty array, and then remove that number out of the possibleSquares array, and decrement possibleSquares.length
-      let possibleSquares = [symbol1,symbol1,symbol2,symbol2,symbol3,symbol3,symbol4,symbol4,symbol5,symbol5,symbol6,symbol6,symbol7,symbol7,symbol8,symbol8,symbol9,symbol9];
-      let squares = this.state.squares;
-      //if squares have already been filled, return
-      if (squares.length) return;
-
-      for (let i = possibleSquares.length-1; i > -1; --i) {
-        //choose random number as the index
-        let chosenIndex = Math.floor(Math.random() * i);
-        //choose the square at theat index and push into squares array
-        let chosenSquare = possibleSquares[chosenIndex];
-        squares.push(chosenSquare);
-        //remove that square, since it's already been used
-        possibleSquares.splice(chosenIndex, 1);
-      }
-      this.setState({
-        squares: squares,
-      })
-  }
-
-  declareWinner() {
-    let winner;
-    if (this.state.playerAMatches > this.state.playerBMatches) {
-      winner = `The Winner is ${this.state.playerAName}`;
-    } else if (this.state.playerBMatches > this.state.playerAMatches) {
-      winner = `The Winner is ${this.state.playerBName}`;
+//Check for matches
+useEffect(() => {
+  if (numberOfTurns === 2) {
+    //if the cards were a match
+    if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
+      console.log('that\'s a bingo');
+      //increment score of whoever's turn it is
+      whichPlayer ==='A' ? setPlayerA({...playerA, matches: ++playerA.matches}) : setPlayerB({...playerB, matches: ++playerB.matches})
+      //current player remains player if match is made
+      whichPlayer ==='A' ? setWhichPlayer('A') : setWhichPlayer('B');
+      //reset numberOfTurns and squaresClickedDuringTurn to initial values
+      setNumberOfTurns(0);
+      setSquaresClickedDuringTurn([]);
+      // setExposedSquares([...exposedSquares, index])
+      //if the cards were not a match
     } else {
-      winner = 'DRAW';
+      console.log('no bingo')
+      whichPlayer==='A' ? setWhichPlayer('B') : setWhichPlayer('A');
+      setNumberOfTurns(0);
+      setSquaresClickedDuringTurn([]);
+      //show card that was flipped for 1.5 seconds
+      setDisableClick(true);
+      //after 1.5 seconds, remove the unmatched cards from exposedSquares
+      setTimeout(() => {
+        setExposedSquares(exposedSquares.slice(0, exposedSquares.length - 2))
+        setDisableClick(false);
+      }, 1500)
     }
-    return winner;
   }
+}, [numberOfTurns, squaresClickedDuringTurn, playerA, playerB, whichPlayer, exposedSquares])
 
-  handleClick(index, square) {
-
-    let squaresClickedDuringTurn = this.state.squaresClickedDuringTurn;
-    let numberOfTurns = this.state.numberOfTurns;
-    let playerAMatches = this.state.playerAMatches;
-    let playerBMatches = this.state.playerBMatches;
-    let whichPlayer = this.state.whichPlayer;
-    let exposedSquares = this.state.exposedSquares;
-
+const handleClick = (index, square) => {
     //if the index is already in the exposedSquares (e.g. if square has already been clicked) return out of handleClick function
-    for (let i = 0; i < exposedSquares.length; ++i) {
-      if (exposedSquares[i] === index) {
-        return;
-      }
+    if (exposedSquares.includes(index)) return;
+
+    if (numberOfTurns === 0 || numberOfTurns === 1) {
+      setNumberOfTurns(++numberOfTurns);
+      setSquaresClickedDuringTurn([...squaresClickedDuringTurn, square])
+      setExposedSquares([...exposedSquares, index]);
     }
+  }
 
-    if (this.state.numberOfTurns === 0) {
-      numberOfTurns++;
-      squaresClickedDuringTurn.push(square)
-      exposedSquares.push(index);
-      this.setState({
-        numberOfTurns: numberOfTurns,
-        squaresClickedDuringTurn: squaresClickedDuringTurn,
-        exposedSquares: exposedSquares,
-      })
-
-      //once two cards have been flipped, check to see if the squares are the same. If so, increment matches of player, push into exposed squares, reset turns to 0, and reset squaresClickedDuringTurn to 0
-    } else {
-      squaresClickedDuringTurn.push(square);
-      exposedSquares.push(index);
-      //if the cards were a match
-      if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
-        console.log('thats a bingo');
-        //increment the matches of whoever's turn it is
-        this.state.whichPlayer==='A' ? playerAMatches++ : playerBMatches++;
-        //current player remains player if match is made
-        whichPlayer==='A' ? whichPlayer='A' : whichPlayer='B'
-        this.setState({
-          whichPlayer: whichPlayer,
-          playerAMatches: playerAMatches,
-          playerBMatches: playerBMatches,
-          numberOfTurns: 0,
-          squaresClickedDuringTurn: [],
-          exposedSquares: exposedSquares,
-        })
-        //if cards flipped didn't match
+  useEffect(() => {
+    if (exposedSquares.length === gameSquares.length && gameSquares.length > 0) {
+      if (playerA.matches > playerB.matches) {
+        setWinner(playerA.name);
+      } else if (playerB.matches > playerA.matches) {
+        setWinner(playerB.name);
       } else {
-        //show card that was flipped for 1500 ms
-        this.setState({
-          exposedSquares: exposedSquares,
-          disableClick: true,
-        })
-
-        //after 1500 ms, remove the unmatched cards from exposedSquares and update the state
-        setTimeout(() => {
-          this.state.whichPlayer==='A' ? whichPlayer='B' : whichPlayer='A';
-          //remove squares that were added
-          exposedSquares.pop();
-          exposedSquares.pop();
-          this.setState({
-            whichPlayer: whichPlayer,
-            numberOfTurns: 0,
-            squaresClickedDuringTurn: [],
-            //if no match, then reset exposedSquares to original state, removing the temporarily added squares
-            exposedSquares: exposedSquares,
-            disableClick: false,
-          })
-        }, 1500)
+        setWinner('Nobody wins, Nobody loses');
       }
     }
-  }
+  }, [exposedSquares, gameSquares, playerA, playerB])
 
-  showGameInfo() {
-    if (this.state.playerAName.length) {
-      return (
-        <div>
-          <button onClick = {this.fillSquares}>Begin Game</button>
-            <ul>
-              <li>{`Next Player: ${this.state.playerAName}`}</li>
-              <li>{`${this.state.playerAName}'s matches: ${this.state.playerAMatches}`}</li>
-              <li>{`${this.state.playerBName}'s matches: ${this.state.playerBMatches}`}</li>
-            </ul>
-            <div className="winner">
-              {this.state.exposedSquares.length === this.state.squares.length && this.state.squares.length > 0 ? this.declareWinner() : null}
-            </div>
-          </div>
-      )
-    } else {
-      return null;
-    }
-  }
-
-  render() {
-
+if (showForm) {
+  return (
+    <PlayerForm
+    setPlayerNames= {setPlayerNames.bind(this)}
+    />
+  )
+} else if (winner) {
+  return (
+    <div>
+      <Winner
+      winner={winner}/>
+      <button onClick={setShowForm.bind(this, true)}>Play Again</button>
+    </div>
+  )
+} else {
     return (
-      <div style={{pointerEvents:  this.state.disableClick ? 'none' : 'auto'}}>
+      <div style={{pointerEvents: disableClick ? 'none' : 'auto'}}>
 
         <div className="board">
-          <Board
-          squares = {this.state.squares}
-          exposedSquares ={this.state.exposedSquares}
-          whichPlayer = {this.state.whichPlayer}
-          onClick = {this.handleClick}/>
+        <Board
+        squares = {gameSquares}
+        exposedSquares ={exposedSquares}
+        whichPlayer = {whichPlayer}
+        onClick = {handleClick.bind(this)}/>
         </div>
 
-        <PlayerForm
-        setPlayerNames= {this.setPlayerNames}
-        />
-
         <div className="game-info">
-          {this.showGameInfo()}
+        <GameInfo
+        playerA = {playerA}
+        playerB = {playerB}
+        exposedSquares = {exposedSquares}
+        gameSquares = {gameSquares}
+        fillSquares = {fillSquares.bind(this)}/>
         </div>
 
       </div>
     )
   }
-}
+};
 
 export default Game;
