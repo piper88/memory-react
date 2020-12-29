@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Board from './Board.js';
 import PlayerForm from './PlayerForm.js';
-import GameInfo from './GameInfo.js'
+import GameInfo from './GameInfo.js';
+import Winner from './Winner.js';
 
 import img1 from '../images/1.svg';
 import img2 from '../images/2.svg';
@@ -29,6 +30,7 @@ const Game = () => {
   const [exposedSquares, setExposedSquares] = useState([])
   const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
   const [disableClick, setDisableClick] = useState(false);
+  const [winner, setWinner] = useState(false);
 
   const setPlayerNames = (playerAName, playerBName) => {
     setPlayerA({...playerA, name: playerAName});
@@ -40,9 +42,6 @@ const Game = () => {
     console.log(playerA);
     let possibleSquares = [img1,img1,img2,img2,img3,img3,img4,img4,img5,img5,img6,img6,img7,img7,img8,img8,img9,img9];
     let squares = [];
-    //if squares have already been filled, return
-    //is this necessary if you remove form after?
-    if (gameSquares.length) return;
 
     for (let i = possibleSquares.length-1; i > -1; --i) {
       //choose random number as the index
@@ -106,11 +105,31 @@ const handleClick = (index, square) => {
     }
   }
 
+  useEffect(() => {
+    if (exposedSquares.length === gameSquares.length && gameSquares.length > 0) {
+      if (playerA.matches > playerB.matches) {
+        setWinner(playerA.name);
+      } else if (playerB.matches > playerA.matches) {
+        setWinner(playerB.name);
+      } else {
+        setWinner('Nobody wins, Nobody loses');
+      }
+    }
+  }, [exposedSquares, gameSquares, playerA, playerB])
+
 if (showForm) {
   return (
     <PlayerForm
     setPlayerNames= {setPlayerNames.bind(this)}
     />
+  )
+} else if (winner) {
+  return (
+    <div>
+      <Winner
+      winner={winner}/>
+      <button onClick={setShowForm.bind(this, true)}>Play Again</button>
+    </div>
   )
 } else {
     return (
@@ -129,8 +148,8 @@ if (showForm) {
       playerA = {playerA}
       playerB = {playerB}
       exposedSquares = {exposedSquares}
-      fillSquares = {fillSquares.bind(this)}
-      gameSquares = {gameSquares}/>
+      gameSquares = {gameSquares}
+      fillSquares = {fillSquares.bind(this)}/>
       </div>
 
       </div>
