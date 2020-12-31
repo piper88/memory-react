@@ -28,6 +28,7 @@ const Game = () => {
   });
   const [gameSquares, setGameSquares] = useState([]);
   const [exposedSquares, setExposedSquares] = useState([])
+  const [tempExposedSquares, setTempExposedSquares] = useState([]);
   const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
   const [disableClick, setDisableClick] = useState(false);
   const [winner, setWinner] = useState(false);
@@ -52,6 +53,7 @@ const Game = () => {
       //remove that square, since it's already been used
       possibleSquares.splice(chosenIndex, 1);
     }
+    console.log(squares)
     setGameSquares(squares);
   }
 
@@ -68,7 +70,8 @@ useEffect(() => {
       //reset numberOfTurns and squaresClickedDuringTurn to initial values
       setNumberOfTurns(0);
       setSquaresClickedDuringTurn([]);
-      // setExposedSquares([...exposedSquares, index])
+      // setExposedSquares([...exposedSquares, tempExposedSquares])
+      // setTempExposedSquares([]);
       //if the cards were not a match
     } else {
       console.log('no bingo')
@@ -79,20 +82,22 @@ useEffect(() => {
       setDisableClick(true);
       //after 1.5 seconds, remove the unmatched cards from exposedSquares
       setTimeout(() => {
+        // setTempExposedSquares([]);
         setExposedSquares(exposedSquares.slice(0, exposedSquares.length - 2))
         setDisableClick(false);
       }, 1500)
     }
   }
-}, [numberOfTurns, squaresClickedDuringTurn, playerA, playerB, whichPlayer, exposedSquares])
+}, [numberOfTurns])
 
 const handleClick = (index, square) => {
     //if the index is already in the exposedSquares (e.g. if square has already been clicked) return out of handleClick function
-    if (exposedSquares.includes(index)) return;
+    if (exposedSquares.includes(index) || tempExposedSquares.includes(index)) return;
 
     if (numberOfTurns === 0 || numberOfTurns === 1) {
       setNumberOfTurns(++numberOfTurns);
       setSquaresClickedDuringTurn([...squaresClickedDuringTurn, square])
+      // setTempExposedSquares([...tempExposedSquares, index]);
       setExposedSquares([...exposedSquares, index]);
     }
   }
@@ -107,7 +112,7 @@ const handleClick = (index, square) => {
         setWinner('Nobody wins, Nobody loses');
       }
     }
-  }, [exposedSquares, gameSquares, playerA, playerB])
+  }, [exposedSquares])
 
 if (showForm) {
   return (
@@ -131,6 +136,7 @@ if (showForm) {
         <Board
         squares = {gameSquares}
         exposedSquares ={exposedSquares}
+        tempExposedSquares = {tempExposedSquares}
         whichPlayer = {whichPlayer}
         onClick = {handleClick.bind(this)}/>
         </div>
@@ -139,8 +145,6 @@ if (showForm) {
         <GameInfo
         playerA = {playerA}
         playerB = {playerB}
-        exposedSquares = {exposedSquares}
-        gameSquares = {gameSquares}
         fillSquares = {fillSquares.bind(this)}/>
         </div>
 

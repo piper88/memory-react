@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Square = props => {
 
-  function showSquares() {
-    return props.exposedSquares.map(index => {
-      if (index === props.index) {
-        return <img src={props.square} alt={""} key={props.index}/>
-      } else {
-        return null;
-      }
-    })
+let content  = () => {
+    console.log(`square at index ${props.index} should show: ${props.showImage}`);
+    if (props.showImage) {
+      return (
+        <img src={props.square} alt=""/>
+      )
+    } else {
+      return null;
+    }
   }
+
 
   return (
     <button onClick = {props.onClick.bind(this)}>
-      {showSquares()}
+      {content()}
     </button>
   )
 }
 
-export default React.memo(Square);
+//if returns true, won't rerender
+export default React.memo(Square, (prevProps, nextProps) => {
+  return (
+    prevProps === nextProps
+  )
+});
+
+// export default Square;
