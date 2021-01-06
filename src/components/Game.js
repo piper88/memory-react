@@ -28,7 +28,8 @@ const Game = () => {
   });
   const [gameSquares, setGameSquares] = useState([]);
   const [exposedSquares, setExposedSquares] = useState([])
-  const [tempExposedSquares, setTempExposedSquares] = useState([]);
+  // const [tempExposedSquares, setTempExposedSquares] = useState([]);
+
   const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
   const [disableClick, setDisableClick] = useState(false);
   const [winner, setWinner] = useState(false);
@@ -92,7 +93,7 @@ useEffect(() => {
 
 const handleClick = (index, square) => {
     //if the index is already in the exposedSquares (e.g. if square has already been clicked) return out of handleClick function
-    if (exposedSquares.includes(index) || tempExposedSquares.includes(index)) return;
+    if (exposedSquares.includes(index)) return;
 
     if (numberOfTurns === 0 || numberOfTurns === 1) {
       setNumberOfTurns(++numberOfTurns);
@@ -136,7 +137,7 @@ if (showForm) {
         <Board
         squares = {gameSquares}
         exposedSquares ={exposedSquares}
-        tempExposedSquares = {tempExposedSquares}
+
         whichPlayer = {whichPlayer}
         onClick = {handleClick.bind(this)}/>
         </div>

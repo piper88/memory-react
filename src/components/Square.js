@@ -22,10 +22,9 @@ let content  = () => {
 }
 
 //if returns true, won't rerender
+//prevProps.showImage === nextProps.showImage doing weird stuff. Should work?
 export default React.memo(Square, (prevProps, nextProps) => {
   return (
     prevProps === nextProps
   )
 });
-
-// export default Square;

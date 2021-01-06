@@ -12,6 +12,8 @@ const Board = props => {
 //if the index of the square matches an index found in exposedSquares or tempExposedSquares, then return an image
 //otherwise, return an empty box
 
+console.log('board');
+
 let exposedSquares = new Map();
 
 
@@ -54,4 +56,9 @@ let grid =  () => {
   )
 }
 
-export default Board;
+export default React.memo(Board, (prevProps, nextProps) => {
+  return (
+    prevProps.exposedSquares === nextProps.exposedSquares &&
+    prevProps.squares === nextProps.squares
+  )
+});
