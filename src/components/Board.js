@@ -1,29 +1,54 @@
-import React from 'react';
+import React, { useEffect, useCallback} from 'react';
 import Square from './Square.js';
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 const Board = props => {
 
-  function renderGrid() {
-    return props.squares.map((square, index) => {
+//map through squares, you need a square for each square
+//if the index of the square matches an index found in exposedSquares or tempExposedSquares, then return an image
+//otherwise, return an empty box
+
+//useCallback memoizes callbacks, to prevent unnecessasary renderings
+// const onClick = useCallback(
+//   (index, square) => {
+//     console.log('yo');
+//     return props.onClick(index, square)
+//   },
+//   [props.onClick]
+// )
+
+
+let squaresToShow = new Map();
+
+  props.exposedSquares.map((square) => {
+    squaresToShow.set(square, true);
+  });
+
+let grid = () => {
+
+  return props.squares.map((square, index) => {
       return (
         <Square
-          //passes index and value of square clicked back to Game
           onClick = {props.onClick.bind(this, index, square)}
-          exposedSquares = {props.exposedSquares}
-          index = {index}
           square = {square}
-          key = {uuid()}
+          index = {index}
+          key ={index}
+          showImage = {squaresToShow.has(index)}
         />
       )
-    })
-  }
+  })
+}
 
   return (
     <div className="container">
-      {renderGrid()}
+      {grid()}
     </div>
   )
 }
 
-export default Board;
+export default React.memo(Board, (prevProps, nextProps) => {
+  return (
+    prevProps.exposedSquares === nextProps.exposedSquares &&
+    prevProps.squares === nextProps.squares
+  )
+});
