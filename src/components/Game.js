@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Board from './Board.js';
 import PlayerForm from './PlayerForm.js';
 import GameInfo from './GameInfo.js';
@@ -54,7 +54,6 @@ const Game = () => {
       //remove that square, since it's already been used
       possibleSquares.splice(chosenIndex, 1);
     }
-    console.log(squares)
     setGameSquares(squares);
   }
 
@@ -86,22 +85,23 @@ useEffect(() => {
         // setTempExposedSquares([]);
         setExposedSquares(exposedSquares.slice(0, exposedSquares.length - 2))
         setDisableClick(false);
-      }, 1500)
+      }, 5000)
     }
   }
 }, [numberOfTurns])
 
 const handleClick = (index, square) => {
-    //if the index is already in the exposedSquares (e.g. if square has already been clicked) return out of handleClick function
-    if (exposedSquares.includes(index)) return;
+      //if the index is already in the exposedSquares (e.g. if square has already been clicked) return out of handleClick function
+      if (exposedSquares.includes(index)) return;
 
-    if (numberOfTurns === 0 || numberOfTurns === 1) {
-      setNumberOfTurns(++numberOfTurns);
-      setSquaresClickedDuringTurn([...squaresClickedDuringTurn, square])
-      // setTempExposedSquares([...tempExposedSquares, index]);
-      setExposedSquares([...exposedSquares, index]);
+      if (numberOfTurns === 0 || numberOfTurns === 1) {
+        setNumberOfTurns(++numberOfTurns);
+        setSquaresClickedDuringTurn([...squaresClickedDuringTurn, square])
+        // setTempExposedSquares([...tempExposedSquares, index]);
+        setExposedSquares([...exposedSquares, index]);
+      }
     }
-  }
+
 
   useEffect(() => {
     if (exposedSquares.length === gameSquares.length && gameSquares.length > 0) {
@@ -137,7 +137,6 @@ if (showForm) {
         <Board
         squares = {gameSquares}
         exposedSquares ={exposedSquares}
-
         whichPlayer = {whichPlayer}
         onClick = {handleClick.bind(this)}/>
         </div>
