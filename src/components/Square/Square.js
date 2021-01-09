@@ -14,7 +14,9 @@ let content  = () => {
 
 
   return (
-    <button onClick = {props.onClick.bind(this)}>
+    <button
+    onClick = {props.onClick.bind(this)}
+    data-test="Square Component">
       {content()}
     </button>
   )
