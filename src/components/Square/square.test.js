@@ -24,4 +24,15 @@ describe('Square Component', () => {
     const wrapper = component.find(`[data-test="Square Component"]`);
     expect(wrapper.length).toBe(1);
   });
+
+  it('should render an image', () => {
+    const wrapper = component.containsMatchingElement(<img src={component.square} alt=""/>)
+    expect(wrapper).toBe(true);
+  })
+
+  it('should not render an image', () => {
+    component.showImage=false;
+    const wrapper = component.containsMatchingElement(<img src={component.square} alt="" />)
+    expect(wrapper.length).toBe(undefined)
+  })
 })
