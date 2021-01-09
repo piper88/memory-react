@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image tag returned if props.showImage is true, null returned if props.showImage is false 1`] = `
+<button
+  onClick={[Function]}
+>
+  <img
+    alt=""
+  />
+</button>
+`;
+
+exports[`Image tag returned if props.showImage is true, null returned if props.showImage is false 2`] = `
+<button
+  onClick={[Function]}
+  showImage={false}
+>
+  <img
+    alt=""
+  />
+</button>
+`;
