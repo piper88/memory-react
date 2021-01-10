@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback} from 'react';
-import Square from './Square.js';
+import Square from '../Square/Square.js';
 // const uuid = require('uuid/v4');
 
 const Board = props => {

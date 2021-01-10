@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 
 const setUp = (props) => {
   const component = shallow(<Square {...props} />)
-  console.log(component)
   return component;
 }
 
@@ -21,6 +20,7 @@ describe('Square Component', () => {
   })
 
   it('should render without errors', () => {
+    console.log(component)
     const wrapper = component.find(`[data-test="Square Component"]`);
     expect(wrapper.length).toBe(1);
   });
