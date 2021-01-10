@@ -34,6 +34,7 @@ let grid = () => {
           index = {index}
           key ={index}
           showImage = {squaresToShow.has(index)}
+          data-test="Board Component"
         />
       )
   })
