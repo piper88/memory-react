@@ -27,7 +27,7 @@ const PlayerForm = props => {
 
   if (showForm) {
     return (
-      <form onSubmit = {handleSubmit}>
+      <form onSubmit = {handleSubmit} data-test = "Player Form">
         <label>
           Player A:
           <input
