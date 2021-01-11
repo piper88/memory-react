@@ -17,7 +17,12 @@ describe('testing PlayerForm component', () => {
   });
 
   it('should render without errors', () => {
-    let form = component.find(`[data-test="Player Form"]`);
-    expect(form.length).toBe(1);
+    let wrapper = component.find(`[data-test="Player Form"]`);
+    expect(wrapper.length).toBe(1);
+  })
+
+  it('should render two input tags for player names', () => {
+    let wrapper = component.find('input');
+    expect(wrapper.length).toBe(2);
   })
 })
