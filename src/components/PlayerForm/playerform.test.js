@@ -25,4 +25,13 @@ describe('testing PlayerForm component', () => {
     let wrapper = component.find('input');
     expect(wrapper.length).toBe(2);
   })
+
+  it('should return null if showForm is false', () => {
+    let wrapper = component.find('form').simulate('submit', {
+      //a fake function that gets passed to event handlers (handleSubmit in this case). Event was undefined and throwing an error, now it's just this empty function
+      preventDefault: () => {}
+    })
+    wrapper = component.find(`[data-test="PLayer Form"]`);
+    expect(wrapper.length).toBe(0);
+  })
 })
