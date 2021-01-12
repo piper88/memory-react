@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PlayerForm from './PlayerForm';
+import checkPropTypes from 'check-prop-types';
 
 const setUp = (props) => {
   let component = shallow(<PlayerForm {...props}/>)
@@ -33,5 +34,13 @@ describe('testing PlayerForm component', () => {
     })
     wrapper = component.find(`[data-test="PLayer Form"]`);
     expect(wrapper.length).toBe(0);
+  })
+
+  describe('testing PropTypes', () => {
+    const expectedProps = {
+      setPlayerNames: () => {},
+    }
+    const propsErr = checkPropTypes(PlayerForm.propTypes, expectedProps);
+    expect(propsErr).toBeUndefined();
   })
 })
