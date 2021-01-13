@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback} from 'react';
 import Square from '../Square/Square.js';
-// const uuid = require('uuid/v4');
+import PropTypes from 'prop-types';
 
 const Board = props => {
 
@@ -53,3 +53,10 @@ export default React.memo(Board, (prevProps, nextProps) => {
     prevProps.squares === nextProps.squares
   )
 });
+
+Board.propTypes = {
+  squares: PropTypes.array,
+  exposedSquares: PropTypes.array,
+  whichPlayer: PropTypes.string,
+  onClick: PropTypes.func,
+}

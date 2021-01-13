@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Board from './Board';
+import checkPropTypes from 'check-prop-types';
 
 const setUp = (props) => {
   const component = shallow(<Board {...props}/>);
@@ -31,7 +32,7 @@ describe('Board Component', () => {
     expect(wrapper.length).toBe(4);
   })
 
-  it('should render square with showImage prop equal to true if that square is in exposedSquares prop', () => {
+  it('should render square with showImage=true', () => {
     //Square component with an index equal to exposedSquares[0] should also have a showImage prop of true
     let wrapper = component.find('[data-test="Board Component"]');
     //have Square, now find the square that has an idnex of 0
@@ -40,4 +41,20 @@ describe('Board Component', () => {
     let showImage = square.find('[showImage=true]');
     expect(showImage.length).toBe(1);
   })
+
+  describe('testing proptypes', () => {
+
+    it('should render without errors', () => {
+      const expectedProps = {
+        squares: [0,1,2,3],
+        exposedSquares: [0,1],
+        whichPlayer: 'B',
+        onClick: () => 'Fake fn',
+      }
+
+      const propErrs = checkPropTypes(Board.propTypes, expectedProps, 'props', Board.name);
+      expect(propErrs).toBeUndefined();
+    })
+    })
+
 })
