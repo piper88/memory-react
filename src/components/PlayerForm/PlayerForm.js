@@ -1,7 +1,8 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 
 //A controlled component is one in which react controls the values of form inputs.
-
 const PlayerForm = props => {
   const [playerA, setPlayerA] = useState('');
   const [playerB, setPlayerB] = useState('');
@@ -27,7 +28,7 @@ const PlayerForm = props => {
 
   if (showForm) {
     return (
-      <form onSubmit = {handleSubmit}>
+      <form onSubmit = {handleSubmit} data-test = "Player Form">
         <label>
           Player A:
           <input
@@ -54,6 +55,10 @@ const PlayerForm = props => {
       null
     )
   }
+}
+
+PlayerForm.propTypes = {
+  setPlayerNames: PropTypes.func
 }
 
 export default PlayerForm;
