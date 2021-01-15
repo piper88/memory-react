@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const GameInfo = props => {
 
   return (
-    <div>
+    <div data-set="GameInfo Component">
       <button onClick = {props.fillSquares}>Begin Game</button>
         <ul>
           <li>{`Next Player: ${props.playerA.name}`}</li>
