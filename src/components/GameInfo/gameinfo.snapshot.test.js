@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import GameInfo from './GameInfo';
 
-test('should render GameInfo Component', () => {
+test('should render GameInfo Component correctly ', () => {
   //render component
   let component = renderer.create(
     <GameInfo
