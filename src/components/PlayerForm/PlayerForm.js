@@ -58,7 +58,7 @@ const PlayerForm = props => {
 }
 
 PlayerForm.propTypes = {
-  setPlayerNames: PropTypes.func
+  setPlayerNames: PropTypes.func,
 }
 
 export default PlayerForm;
