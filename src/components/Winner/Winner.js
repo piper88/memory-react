@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Winner = props => {
 
@@ -7,6 +8,10 @@ const Winner = props => {
       {`The winner is ${props.winner}`}
     </div>
   )
+}
+
+Winner.propTypes = {
+  winner: PropTypes.string,
 }
 
 export default Winner;
