@@ -28,20 +28,20 @@ describe('Board Component', () => {
     })
 
       it('should not throw a warning', () => {
-        let expectedProps = {
+        let testProps = {
           squares: [0,1,2,3],
           exposedSquares: [0,1],
           whichPlayer: 'A',
           onClick: () => 'Fake fn',
         }
 
-        let propsErr = checkPropTypes(Board.propTypes, expectedProps, 'prop', Board.name);
+        let propsErr = checkPropTypes(Board.propTypes, testProps, 'prop', Board.name);
         expect(propsErr).toBeUndefined();
       })
 
       it('should throw a warning', () => {
 
-        let expectedProps = {
+        let testProps = {
           squares: 'please work',
           exposedSquares: [0,1],
           whichPlayer: 'B',
@@ -53,10 +53,10 @@ describe('Board Component', () => {
         //expect.checkPropTypes(blah).toThrow('asdfasd');
         //instead must do:
         // expect(() => {
-        //   checkPropTypes(Board.propTypes, expectedProps, 'prop', Board)
+        //   checkPropTypes(Board.propTypes, testProps, 'prop', Board)
         // }).toThrow('Failed to validate prop types')
         //finally works, only if component isn't memoized
-        let propsErr = (/Failed prop type/).test(checkPropTypes(Board.propTypes, expectedProps, 'prop', Board.name));
+        let propsErr = (/Failed prop type/).test(checkPropTypes(Board.propTypes, testProps, 'prop', Board.name));
         expect(propsErr).toBe(true);
       })
     })

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const GameInfo = props => {
 
@@ -12,6 +13,12 @@ const GameInfo = props => {
         </ul>
       </div>
     )
+}
+
+GameInfo.propTypes = {
+  playerA: PropTypes.object,
+  playerB: PropTypes.object,
+  fillSquares: PropTypes.func,
 }
 
 export default GameInfo;

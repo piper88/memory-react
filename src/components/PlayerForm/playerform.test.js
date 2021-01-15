@@ -47,23 +47,23 @@ describe('testing PlayerForm component', () => {
     // })
 
     it ('should not throw a warning', () => {
-      const expectedProps = {
+      const testProps = {
         setPlayerNames: () => 'Fake fn',
       }
-      const propsErr = checkPropTypes(PlayerForm.propTypes, expectedProps, 'prop', PlayerForm);
+      const propsErr = checkPropTypes(PlayerForm.propTypes, testProps, 'prop', PlayerForm);
       expect(propsErr).toBeUndefined();
     })
 
     it ('should throw a warning', () => {
-      const expectedProps = {
+      const testProps = {
         setPlayerNames: 47,
       }
       //checkPropTypes should now throw a warning, which, because I've set up the spy to watch for console.error warnings, should turn that into a thrown exception, with an argument of 'Prop Type Failure'. But why is it not throwing the exception?
       // expect(() => {
-      //   assertPropTypes(PlayerForm.propTypes, expectedProps, 'prop', PlayerForm)
+      //   assertPropTypes(PlayerForm.propTypes, testProps, 'prop', PlayerForm)
       // }).toThrow('Prop Type Failure');
 
-      const propsErr = (/Failed prop type/).test(checkPropTypes(PlayerForm.propTypes, expectedProps, 'prop', PlayerForm));
+      const propsErr = (/Failed prop type/).test(checkPropTypes(PlayerForm.propTypes, testProps, 'prop', PlayerForm));
       expect(propsErr).toBe(true);
     })
   })
