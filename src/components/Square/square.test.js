@@ -2,7 +2,7 @@ import React from 'react';
 import Square from './Square.js';
 import { shallow } from 'enzyme';
 
-const setUp = (props) => {
+const setUp = (props={}) => {
   const component = shallow(<Square {...props} />)
   return component;
 }

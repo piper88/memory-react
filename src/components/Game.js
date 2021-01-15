@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Board from './Board.js';
-import PlayerForm from './PlayerForm.js';
+import Board from './Board/Board.js';
+import PlayerForm from './PlayerForm/PlayerForm.js';
 import GameInfo from './GameInfo.js';
 import Winner from './Winner.js';
 

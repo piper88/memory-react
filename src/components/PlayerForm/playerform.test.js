@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import PlayerForm from './PlayerForm';
 import checkPropTypes from 'check-prop-types';
 
-const setUp = (props) => {
+const setUp = (props={}) => {
   let component = shallow(<PlayerForm {...props}/>)
   return component;
 }
@@ -38,9 +38,11 @@ describe('testing PlayerForm component', () => {
 
   describe('testing PropTypes', () => {
     const expectedProps = {
-      setPlayerNames: () => {},
+      //HALLEFUCKINGLUJAH ITS FAILING HERE
+      //I've never been so jazzed to have a test fail
+      setPlayerNames: () => 'Fake fn',
     }
-    const propsErr = checkPropTypes(PlayerForm.propTypes, expectedProps);
+    const propsErr = checkPropTypes(PlayerForm.propTypes, expectedProps, 'props', PlayerForm);
     expect(propsErr).toBeUndefined();
   })
 })
