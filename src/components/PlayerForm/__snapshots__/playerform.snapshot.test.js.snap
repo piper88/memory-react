@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render PlayerForm correctly 1`] = `
+<form
+  data-test="Player Form"
+  onSubmit={[Function]}
+>
+  <label>
+    Player A:
+    <input
+      name="playerA"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <label>
+    Player B:
+    <input
+      name="playerB"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <button>
+    Submit
+  </button>
+</form>
+`;
