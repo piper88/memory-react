@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render GameInfo Component 1`] = `
+<div
+  data-set="GameInfo Component"
+>
+  <button
+    onClick={[Function]}
+  >
+    Begin Game
+  </button>
+  <ul>
+    <li>
+      Next Player: Nick
+    </li>
+    <li>
+      Nick's matches: 2
+    </li>
+    <li>
+      Nora's matches: 2
+    </li>
+  </ul>
+</div>
+`;

@@ -52,7 +52,7 @@ let grid = () => {
 Board.propTypes = {
   squares: PropTypes.array,
   exposedSquares: PropTypes.array,
-  whichPlayer: PropTypes.string.isRequired,
+  whichPlayer: PropTypes.string,
   onClick: PropTypes.func,
 }
 
