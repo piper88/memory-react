@@ -1,21 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render Square component correctly, with showImage prop equal to true as well as false 1`] = `
+exports[`should render Square component correctly, with showImage prop equal to false 1`] = `
 <button
   data-test="Square Component"
   onClick={[Function]}
->
-  <img
-    alt=""
-  />
-</button>
+/>
 `;
 
-exports[`should render Square component correctly, with showImage prop equal to true as well as false 2`] = `
+exports[`should render Square component correctly, with showImage prop equal to true 1`] = `
 <button
   data-test="Square Component"
   onClick={[Function]}
-  showImage={false}
 >
   <img
     alt=""
