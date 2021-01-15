@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Board Component correctly 1`] = `
+<div
+  className="container"
+>
+  <button
+    data-test="Square Component"
+    onClick={[Function]}
+  />
+  <button
+    data-test="Square Component"
+    onClick={[Function]}
+  >
+    <img
+      alt=""
+      src={47}
+    />
+  </button>
+</div>
+`;
