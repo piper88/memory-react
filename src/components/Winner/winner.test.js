@@ -14,6 +14,7 @@ describe('testing Winner component', () => {
   beforeEach(() => {
     component = setUp({winner: 'me'});
   })
+
   describe('testing prop types', () => {
 
     it('should not throw a warning', () => {
@@ -32,6 +33,13 @@ describe('testing Winner component', () => {
 
       const propsErr = (/Failed prop type/).test(checkPropTypes(Winner.propTypes, testProps, 'prop', Winner));
       expect(propsErr).toBe(true);
+    })
+  })
+
+  describe('have props', () => {
+    it('should render without error', () => {
+      let wrapper = component.find(`[data-test="Winner Component"]`);
+      expect(wrapper.length).toBe(1);
     })
   })
 })

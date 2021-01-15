@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Winner = props => {
 
   return (
-    <div className="winner">
+    <div className="winner" data-test="Winner Component">
       {`The winner is ${props.winner}`}
     </div>
   )

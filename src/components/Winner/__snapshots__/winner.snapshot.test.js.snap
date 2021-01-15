@@ -3,6 +3,7 @@
 exports[`should render Winner Component correctly 1`] = `
 <div
   className="winner"
+  data-test="Winner Component"
 >
   The winner is me
 </div>
