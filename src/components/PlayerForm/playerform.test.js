@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PlayerForm from './PlayerForm';
-import checkPropTypes from 'check-prop-types';
+import checkPropTypes, { assertPropTypes } from 'check-prop-types';
+import { propTypeWarnings } from '../../Utils/index';
 
 const setUp = (props={}) => {
   let component = shallow(<PlayerForm {...props}/>)
@@ -11,6 +12,8 @@ const setUp = (props={}) => {
 describe('testing PlayerForm component', () => {
   let component;
   beforeEach(() => {
+    //calling the spy here, causes the util function to be called, because the console.error with the wrong prop type is being called immediately upon rendering the component.
+    // propTypeWarnings();
     const props = {
       setPlayerNames: () => 'Fake fn'
     }
@@ -37,12 +40,31 @@ describe('testing PlayerForm component', () => {
   })
 
   describe('testing PropTypes', () => {
-    const expectedProps = {
-      //HALLEFUCKINGLUJAH ITS FAILING HERE
-      //I've never been so jazzed to have a test fail
-      setPlayerNames: () => 'Fake fn',
-    }
-    const propsErr = checkPropTypes(PlayerForm.propTypes, expectedProps, 'props', PlayerForm);
-    expect(propsErr).toBeUndefined();
+
+    // //this isn't doing anything when using check-prop-types library.
+    // beforeEach(() => {
+    //   propTypeWarnings();
+    // })
+
+    it ('should not throw a warning', () => {
+      const expectedProps = {
+        setPlayerNames: () => 'Fake fn',
+      }
+      const propsErr = checkPropTypes(PlayerForm.propTypes, expectedProps, 'prop', PlayerForm);
+      expect(propsErr).toBeUndefined();
+    })
+
+    it ('should throw a warning', () => {
+      const expectedProps = {
+        setPlayerNames: 47,
+      }
+      //checkPropTypes should now throw a warning, which, because I've set up the spy to watch for console.error warnings, should turn that into a thrown exception, with an argument of 'Prop Type Failure'. But why is it not throwing the exception?
+      // expect(() => {
+      //   assertPropTypes(PlayerForm.propTypes, expectedProps, 'prop', PlayerForm)
+      // }).toThrow('Prop Type Failure');
+
+      const propsErr = (/Failed prop type/).test(checkPropTypes(PlayerForm.propTypes, expectedProps, 'prop', PlayerForm));
+      expect(propsErr).toBe(true);
+    })
   })
 })
