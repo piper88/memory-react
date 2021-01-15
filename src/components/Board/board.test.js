@@ -1,15 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Board from './Board';
-import checkPropTypes from 'check-prop-types';
+import checkPropTypes, { assertPropTypes } from 'check-prop-types';
+import { propTypeWarnings } from '../../Utils/index.js';
 
-const setUp = (props) => {
+const setUp = (props={}) => {
   const component = shallow(<Board {...props}/>);
   return component;
 }
 
 describe('Board Component', () => {
-
   let component;
   beforeEach(() => {
     const props = {
@@ -22,39 +22,65 @@ describe('Board Component', () => {
     component = setUp(props);
   })
 
-  it('should render without error', () => {
-    let wrapper = component.find('.container');
-    expect(wrapper.length).toBe(1);
-  })
-
-  it('should render squares', () => {
-    let wrapper = component.find('[data-test="Board Component"]')
-    expect(wrapper.length).toBe(4);
-  })
-
-  it('should render square with showImage=true', () => {
-    //Square component with an index equal to exposedSquares[0] should also have a showImage prop of true
-    let wrapper = component.find('[data-test="Board Component"]');
-    //have Square, now find the square that has an idnex of 0
-    let square = wrapper.find(`[index=0]`);
-    //now check to see if that square also has a showImage property of true
-    let showImage = square.find('[showImage=true]');
-    expect(showImage.length).toBe(1);
-  })
-
   describe('testing proptypes', () => {
-
-    it('should render without errors', () => {
-      const expectedProps = {
-        squares: [0,1,2,3],
-        exposedSquares: [0,1],
-        whichPlayer: 'B',
-        onClick: () => 'Fake fn',
-      }
-
-      const propErrs = checkPropTypes(Board.propTypes, expectedProps, 'props', Board.name);
-      expect(propErrs).toBeUndefined();
-    })
+    beforeEach(() => {
+      propTypeWarnings();
     })
 
+      it('should not throw a warning', () => {
+        let expectedProps = {
+          squares: [0,1,2,3],
+          exposedSquares: [0,1],
+          whichPlayer: 'A',
+          onClick: () => 'Fake fn',
+        }
+
+        let propsErr = checkPropTypes(Board.propTypes, expectedProps, 'prop', Board.name);
+        expect(propsErr).toBeUndefined();
+      })
+
+      it('should throw a warning', () => {
+
+        let expectedProps = {
+          squares: 'please work',
+          exposedSquares: [0,1],
+          whichPlayer: 'B',
+          onClick: () => 'Fake fn',
+        }
+
+        //Below is the way to pass a test you throw an error in.
+        //to test for a thrown excpetion in jest, you have to wrap the function that is throwing the error in an anonymous function, like below. Can't just do:
+        //expect.checkPropTypes(blah).toThrow('asdfasd');
+        //instead must do:
+        // expect(() => {
+        //   checkPropTypes(Board.propTypes, expectedProps, 'prop', Board)
+        // }).toThrow('Failed to validate prop types')
+        //finally works, only if component isn't memoized
+        let propsErr = (/Failed prop type/).test(checkPropTypes(Board.propTypes, expectedProps, 'prop', Board.name));
+        expect(propsErr).toBe(true);
+      })
+    })
+
+  describe('have props', () => {
+
+    it('should render without error', () => {
+      let wrapper = component.find('.container');
+      expect(wrapper.length).toBe(1);
+    })
+
+    it('should render squares', () => {
+      let wrapper = component.find('[data-test="Board Component"]')
+      expect(wrapper.length).toBe(4);
+    })
+
+    it('should render square with showImage=true', () => {
+      //Square component with an index equal to exposedSquares[0] should also have a showImage prop of true
+      let wrapper = component.find('[data-test="Board Component"]');
+      //find square with index of 0
+      let square = wrapper.find(`[index=0]`);
+      //check to see if that square has showImage prop equal to true
+      let showImage = square.find('[showImage=true]');
+      expect(showImage.length).toBe(1);
+    })
+  })
 })

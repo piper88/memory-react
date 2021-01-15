@@ -47,16 +47,20 @@ let grid = () => {
   )
 }
 
-export default React.memo(Board, (prevProps, nextProps) => {
-  return (
-    prevProps.exposedSquares === nextProps.exposedSquares &&
-    prevProps.squares === nextProps.squares
-  )
-});
-
+//this is causing error in browser console if wrong prop type is passed in to board
+//problem is in tests, when using check-prop-types library, no error or warning thrown
 Board.propTypes = {
   squares: PropTypes.array,
   exposedSquares: PropTypes.array,
-  whichPlayer: PropTypes.string,
+  whichPlayer: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 }
+
+//React.memo prevents checkPropTypes from correctly validating prop types. Likely since component has been memoized with correct prop types
+export default Board;
+// export default React.memo(Board, (prevProps, nextProps) => {
+//   return (
+//     prevProps.exposedSquares === nextProps.exposedSquares &&
+//     prevProps.squares === nextProps.squares
+//   )
+// });
