@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Board component 1`] = `
+<div
+  data-test="Board and GameInfo"
+  style={
+    Object {
+      "pointerEvents": "auto",
+    }
+  }
+>
+  <div
+    className="board"
+  >
+    <div
+      className="container"
+    />
+  </div>
+  <div
+    className="game-info"
+  >
+    <div
+      data-set="GameInfo Component"
+    >
+      <button
+        onClick={[Function]}
+      >
+        Begin Game
+      </button>
+      <ul>
+        <li>
+          Next Player: Sarah
+        </li>
+        <li>
+          Sarah's matches: 0
+        </li>
+        <li>
+          Piper's matches: 0
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render PlayerForm 1`] = `
+<form
+  data-test="Player Form"
+  onSubmit={[Function]}
+>
+  <label>
+    Player A:
+    <input
+      name="playerA"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <label>
+    Player B:
+    <input
+      name="playerB"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+  </label>
+  <button>
+    Submit
+  </button>
+</form>
+`;
