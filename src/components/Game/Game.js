@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Board from './Board/Board.js';
-import PlayerForm from './PlayerForm/PlayerForm.js';
-import GameInfo from './GameInfo.js';
-import Winner from './Winner.js';
+import Board from '../Board/Board.js';
+import PlayerForm from '../PlayerForm/PlayerForm.js';
+import GameInfo from '../GameInfo/GameInfo.js';
+import Winner from '../Winner/Winner.js';
 
-import img1 from '../images/1.svg';
-import img2 from '../images/2.svg';
-import img3 from '../images/3.svg';
-import img4 from '../images/4.svg';
-import img5 from '../images/5.svg';
-import img6 from '../images/6.svg';
-import img7 from '../images/7.svg';
-import img8 from '../images/8.svg';
-import img9 from '../images/9.svg';
+import img1 from '../../images/1.svg';
+import img2 from '../../images/2.svg';
+import img3 from '../../images/3.svg';
+import img4 from '../../images/4.svg';
+import img5 from '../../images/5.svg';
+import img6 from '../../images/6.svg';
+import img7 from '../../images/7.svg';
+import img8 from '../../images/8.svg';
+import img9 from '../../images/9.svg';
 
 const Game = () => {
   const [showForm, setShowForm] = useState(true);
@@ -118,7 +118,7 @@ const handleClick = (index, square) => {
 if (showForm) {
   return (
     <PlayerForm
-    setPlayerNames= {setPlayerNames.bind(this)}
+    data-test="Player Form" setPlayerNames= {setPlayerNames.bind(this)}
     />
   )
 } else if (winner) {
@@ -131,7 +131,7 @@ if (showForm) {
   )
 } else {
     return (
-      <div style={{pointerEvents: disableClick ? 'none' : 'auto'}}>
+      <div style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
 
         <div className="board">
         <Board
