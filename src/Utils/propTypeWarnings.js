@@ -1,4 +1,6 @@
-export const propTypeWarnings = () => {
+//This is only running if I manually call console.error in the test. If I use check-prop-types library, a console.error is (I think) running, but for some reason isn't triggering this to run...
+//this is also running during the failed test 'should render without errors', if a prop type warning is thrown in the browser.
+const propTypeWarnings = () => {
   const originalConsoleError = global.console.error;
 
 //I think this doesn't work nicely with checkPropTypes. This utility function works with console.errors in the browser console. With checkPropTypes, the warning isn't coming through the browser?
@@ -15,5 +17,4 @@ global.console.error = (...args) => {
   }
 }
 
-//This is only running if I manually call console.error in the test. If I use check-prop-types library, a console.error is (I think) running, but for some reason isn't triggering this to run...
-//this is also running during the failed test 'should render without errors', if a prop type warning is thrown in the browser.
+export default propTypeWarnings;

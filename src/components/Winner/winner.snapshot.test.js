@@ -1,14 +1,13 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import Winner from './Winner';
+import renderSnapshot from '../../Utils/renderSnapshot';
 
 test('should render Winner Component correctly', () => {
-  let component = renderer.create(
+  let snapshot = renderSnapshot(
     <Winner
       winner = {'me'}
     />
   )
 
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(snapshot).toMatchSnapshot();
 })

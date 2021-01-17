@@ -126,14 +126,17 @@ if (showForm) {
     <div data-test="Winner">
       <Winner
       winner={winner}/>
-      <button onClick={setShowForm.bind(this, true)}>Play Again</button>
+      <button
+      onClick={setShowForm.bind(this, true)}>
+        Play Again
+      </button>
     </div>
   )
 } else {
     return (
       <div style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
 
-        <div className="board" key="board">
+        <div className="board" >
         <Board
         squares = {gameSquares}
         exposedSquares ={exposedSquares}
@@ -141,7 +144,7 @@ if (showForm) {
         onClick = {handleClick.bind(this)}/>
         </div>
 
-        <div className="game-info" key="game-info">
+        <div className="game-info">
         <GameInfo
         playerA = {playerA}
         playerB = {playerB}

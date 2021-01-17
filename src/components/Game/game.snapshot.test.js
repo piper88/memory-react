@@ -1,18 +1,17 @@
 import React from 'react';
 //maybe helpful for testing winner component?
-import {render, screen} from '@testing-library/react'
-import renderer from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
 import Game from './Game';
+import {render, screen} from '@testing-library/react'
+import { shallow, mount } from 'enzyme';
+import renderSnapshot from '../../Utils/renderSnapshot';
 
 const renderComponent = () => (
   shallow(<Game />)
 )
 
 test('should render PlayerForm', () => {
-  let component = renderer.create( <Game /> )
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  let snapshot = renderSnapshot(<Game />)
+  expect(snapshot).toMatchSnapshot();
 
 })
 
@@ -21,9 +20,10 @@ test('should render Board component', () => {
   let shallowComponent = renderComponent();
   //call setPlayerNames prop, which will setShowForm to false
   shallowComponent.props().setPlayerNames('Sarah', 'Piper');
-  let component = renderer.create(shallowComponent);
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  let snapshot = renderSnapshot(shallowComponent);
+  // let component = renderer.create(shallowComponent);
+  // let tree = component.toJSON();
+  expect(snapshot).toMatchSnapshot();
 });
 
 //having trouble figuring out how to test rendering of Winner component. Since no function that calls the setWinner...maybe use render() method? Maybe sinon? tbd
