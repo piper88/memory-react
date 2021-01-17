@@ -3,7 +3,6 @@ import GameInfo from './GameInfo';
 import renderSnapshot from '../../Utils/renderSnapshot';
 
 test('should render GameInfo Component correctly ', () => {
-  //render component
   let snapshot = renderSnapshot(
     <GameInfo
       playerA =  {{name: 'Nick', matches: 2}}

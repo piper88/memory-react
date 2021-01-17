@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import PlayerForm from './PlayerForm';
 import checkPropTypes, { assertPropTypes } from 'check-prop-types';
-import { propTypeWarnings } from '../../Utils/index';
+import { propTypeWarnings } from '../../Utils/propTypeWarnings';
 
 const setUp = (props={}) => {
   let component = shallow(<PlayerForm {...props}/>)

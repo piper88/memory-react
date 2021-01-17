@@ -8,7 +8,7 @@ test('should render Board Component correctly', () => {
     exposedSquares = {[1]}
     whichPlayer = {'A'}
     onClick = {() => 'Fake fn'}
-  />)
+    />)
 
   expect(snapshot).toMatchSnapshot();
 })

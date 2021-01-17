@@ -1,13 +1,12 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import PlayerForm from './PlayerForm';
+import renderSnapshot from '../../Utils/renderSnapshot';
 
 test('should render PlayerForm correctly', () => {
-  let component = renderer.create(
+  let snapshot = renderSnapshot(
     <PlayerForm
       setPlayerNames={() => 'Fake fn'}
     />
   )
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(snapshot).toMatchSnapshot();
 })
