@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Board from './Board';
 import checkPropTypes, { assertPropTypes } from 'check-prop-types';
-import { propTypeWarnings } from '../../Utils/index.js';
+import propTypeWarnings from '../../Utils/propTypeWarnings';
 
 const setUp = (props={}) => {
   const component = shallow(<Board {...props}/>);

@@ -1,19 +1,15 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import GameInfo from './GameInfo';
+import renderSnapshot from '../../Utils/renderSnapshot';
 
 test('should render GameInfo Component correctly ', () => {
   //render component
-  let component = renderer.create(
+  let snapshot = renderSnapshot(
     <GameInfo
       playerA =  {{name: 'Nick', matches: 2}}
       playerB = {{name: 'Nora', matches: 2}}
       fillSquares= {() => 'fake fn'}
     />
   )
-
-  //turn component into JSON
-  let tree = component.toJSON();
-  //compare tree to snapshot
-  expect(tree).toMatchSnapshot()
+  expect(snapshot).toMatchSnapshot();
 })
