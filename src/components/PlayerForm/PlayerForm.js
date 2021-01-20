@@ -34,7 +34,7 @@ const PlayerForm = props => {
       <form className='form-container' onSubmit = {handleSubmit} data-test = "Player Form" >
 
         <label>
-          Player One:
+          Player 1:
           <input
           type="text"
           name='playerA'
@@ -44,7 +44,7 @@ const PlayerForm = props => {
           />
         </label>
         <label>
-          Player Two:
+          Player 2:
           <input
           type="text"
           name='playerB'

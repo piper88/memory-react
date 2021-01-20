@@ -2,9 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* width: 100%; */
+  height: 250px;
 }
 
 .title {
-
+  font-family: 'Potta One', sans-serif;
+  font-size: 36pt;
+  text-shadow: 4px 4px 4px #aaa;
+  color: #6966ff;
 }
