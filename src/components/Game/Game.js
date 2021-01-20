@@ -3,6 +3,7 @@ import Board from '../Board/Board.js';
 import PlayerForm from '../PlayerForm/PlayerForm.js';
 import GameInfo from '../GameInfo/GameInfo.js';
 import Winner from '../Winner/Winner.js';
+import './game.css';
 
 import img1 from '../../images/1.svg';
 import img2 from '../../images/2.svg';
@@ -35,16 +36,13 @@ const Game = () => {
   const [winner, setWinner] = useState(false);
 
   const setPlayerNames = (playerAName, playerBName) => {
-    //refactor this such that accepts a player name, and which player
     setPlayerA({...playerA, name: playerAName});
     setPlayerB({...playerB, name: playerBName});
     setShowForm(false);
-
     fillSquares();
   }
 
   const fillSquares = ()  => {
-    console.log(playerA);
     let possibleSquares = [img1,img1,img2,img2,img3,img3,img4,img4,img5,img5,img6,img6,img7,img7,img8,img8,img9,img9];
     let squares = [];
 
@@ -120,9 +118,12 @@ const handleClick = (index, square) => {
 
 if (showForm) {
   return (
-    <PlayerForm
-    data-test="Player Form" setPlayerNames= {setPlayerNames.bind(this)}
-    />
+    <div className='title-container'>
+      <h1 className='title'>Memory</h1>
+      <PlayerForm
+      data-test="Player Form" setPlayerNames= {setPlayerNames.bind(this)}
+      />
+    </div>
   )
 } else if (winner) {
   return (
@@ -137,7 +138,8 @@ if (showForm) {
   )
 } else {
     return (
-      <div style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
+      <div className='title-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
+        <h1 className='title'>Memory</h1>
 
         <div className="board" >
         <Board
@@ -150,9 +152,7 @@ if (showForm) {
         <div className="game-info">
         <GameInfo
         playerA = {playerA}
-        playerB = {playerB}
-        // fillSquares = {fillSquares.bind(this)}
-        gameSquares = {gameSquares}/>
+        playerB = {playerB}/>
         </div>
 
       </div>

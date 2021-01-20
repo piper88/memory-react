@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './playerform.css';
 
 
 //A controlled component is one in which react controls the values of form inputs.
@@ -30,31 +31,33 @@ const PlayerForm = props => {
     //setting value on input means its a controlled component, and without an onChange handler, the input will be read only, unless you use a ref.
     //value is what shows as the user types
   return (
-    <form onSubmit = {handleSubmit} data-test = "Player Form">
-      <label>
-        Player A:
-        <input
-        type="text"
-        name='playerA'
-        value = {playerA}
-        placeholder = 'Enter player one here...'
-        onChange = {handleChange.bind(this)}
-        />
-      </label>
-      <label>
-        Player B:
-        <input
-        type="text"
-        name='playerB'
-        value = {playerB}
-        placeholder = 'Enter player two here...'
-        onChange = {handleChange.bind(this)}
-        />
-      </label>
-      <button>
-        Begin Game!
-      </button>
-    </form>
+      <form className='form-container' onSubmit = {handleSubmit} data-test = "Player Form" >
+
+        <label>
+          Player 1:
+          <input
+          type="text"
+          name='playerA'
+          value = {playerA}
+          placeholder = 'Enter name'
+          onChange = {handleChange.bind(this)}
+          />
+        </label>
+        <label>
+          Player 2:
+          <input
+          type="text"
+          name='playerB'
+          value = {playerB}
+          placeholder = 'Enter name'
+          onChange = {handleChange.bind(this)}
+          />
+        </label>
+        <button>
+          Begin Game!
+        </button>
+
+      </form>
   )
 }
 
