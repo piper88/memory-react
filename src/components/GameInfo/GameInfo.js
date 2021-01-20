@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './gameinfo.css';
+import './gameinfo.scss';
 
 const GameInfo = props => {
   // const beginGame = props.gameSquares.length > 0 ? null : <button onClick = {props.fillSquares}>Begin Game</button>;

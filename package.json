@@ -49,6 +49,7 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "jest-enzyme": "^7.1.2",
     "react-test-renderer": "^17.0.1",
+    "sass": "^1.32.5",
     "url-loader": "^4.1.1"
   }
 }

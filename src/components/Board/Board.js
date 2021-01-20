@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback} from 'react';
 import Square from '../Square/Square.js';
 import PropTypes from 'prop-types';
+import './board.scss';
 
 const Board = props => {
 
@@ -41,7 +42,7 @@ let grid = () => {
 }
 
   return (
-    <div className="container">
+    <div className="board-grid-container">
       {grid()}
     </div>
   )

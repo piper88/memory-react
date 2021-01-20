@@ -3,7 +3,7 @@ import Board from '../Board/Board.js';
 import PlayerForm from '../PlayerForm/PlayerForm.js';
 import GameInfo from '../GameInfo/GameInfo.js';
 import Winner from '../Winner/Winner.js';
-import './game.css';
+import './game.scss';
 
 import img1 from '../../images/1.svg';
 import img2 from '../../images/2.svg';
@@ -86,7 +86,7 @@ useEffect(() => {
         // setTempExposedSquares([]);
         setExposedSquares(exposedSquares.slice(0, exposedSquares.length - 2))
         setDisableClick(false);
-      }, 5000)
+      }, 1500)
     }
   }
 }, [numberOfTurns])
@@ -142,17 +142,17 @@ if (showForm) {
         <h1 className='title'>Memory</h1>
 
         <div className="board" >
-        <Board
-        squares = {gameSquares}
-        exposedSquares ={exposedSquares}
-        whichPlayer = {whichPlayer}
-        onClick = {handleClick.bind(this)}/>
+          <Board
+          squares = {gameSquares}
+          exposedSquares ={exposedSquares}
+          whichPlayer = {whichPlayer}
+          onClick = {handleClick.bind(this)}/>
         </div>
 
         <div className="game-info">
-        <GameInfo
-        playerA = {playerA}
-        playerB = {playerB}/>
+          <GameInfo
+          playerA = {playerA}
+          playerB = {playerB}/>
         </div>
 
       </div>
