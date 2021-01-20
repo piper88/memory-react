@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './playerform.css';
+import './playerform.scss';
 
 
 //A controlled component is one in which react controls the values of form inputs.

@@ -1,17 +1,7 @@
-
-.board {
-  float: left;
-}
-
-.container {
+.board-grid-container {
   height: 300px;
   width: 600px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-}
-
-body {
-  background-color: #282c34;
-  font-family: 'Roboto';
 }
