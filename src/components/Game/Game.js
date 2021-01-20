@@ -148,7 +148,8 @@ if (showForm) {
         <GameInfo
         playerA = {playerA}
         playerB = {playerB}
-        fillSquares = {fillSquares.bind(this)}/>
+        fillSquares = {fillSquares.bind(this)}
+        gameSquares = {gameSquares}/>
         </div>
 
       </div>
