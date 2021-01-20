@@ -86,7 +86,7 @@ useEffect(() => {
         // setTempExposedSquares([]);
         setExposedSquares(exposedSquares.slice(0, exposedSquares.length - 2))
         setDisableClick(false);
-      }, 5000)
+      }, 1500)
     }
   }
 }, [numberOfTurns])

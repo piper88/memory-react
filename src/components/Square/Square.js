@@ -6,20 +6,28 @@ const Square = props => {
 let content  = () => {
     if (props.showImage) {
       return (
-        <img src={props.square} alt=""/>
+        <div className='flipper'>
+          <div className='front'>
+            <img src={props.square} alt=""/>
+          </div>
+        </div>
       )
     } else {
-      return null;
+      return (
+        <div className='back'>
+        </div>
+      );
     }
   }
 
-
   return (
-    <button
-    onClick = {props.onClick.bind(this)}
-    data-test="Square Component">
-      {content()}
-    </button>
+    <div className='flip-container'>
+      <button
+      onClick = {props.onClick.bind(this)}
+      data-test="Square Component">
+        {content()}
+      </button>
+    </div>
   )
 }
 
