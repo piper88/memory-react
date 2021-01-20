@@ -2,7 +2,6 @@ import Enzyme from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
 import { JSDOM } from 'jsdom';
 
-
 console.log('setting up tests...')
 
 //Configure Enzyme
