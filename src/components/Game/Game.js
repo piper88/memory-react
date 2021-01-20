@@ -35,9 +35,12 @@ const Game = () => {
   const [winner, setWinner] = useState(false);
 
   const setPlayerNames = (playerAName, playerBName) => {
+    //refactor this such that accepts a player name, and which player
     setPlayerA({...playerA, name: playerAName});
     setPlayerB({...playerB, name: playerBName});
     setShowForm(false);
+
+    fillSquares();
   }
 
   const fillSquares = ()  => {
@@ -148,7 +151,7 @@ if (showForm) {
         <GameInfo
         playerA = {playerA}
         playerB = {playerB}
-        fillSquares = {fillSquares.bind(this)}
+        // fillSquares = {fillSquares.bind(this)}
         gameSquares = {gameSquares}/>
         </div>
 
