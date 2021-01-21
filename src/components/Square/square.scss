@@ -1,8 +1,9 @@
-button {
+.square-button {
   background-color: white;
+  width: 90px;
+  height: 90px;
 }
 
-//one tutorial
 .flip-container .flipper {
   transform: rotateY(180deg);
 }

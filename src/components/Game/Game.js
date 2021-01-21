@@ -5,15 +5,15 @@ import GameInfo from '../GameInfo/GameInfo.js';
 import Winner from '../Winner/Winner.js';
 import './game.scss';
 
-import img1 from '../../images/1.svg';
-import img2 from '../../images/2.svg';
-import img3 from '../../images/3.svg';
-import img4 from '../../images/4.svg';
-import img5 from '../../images/5.svg';
-import img6 from '../../images/6.svg';
-import img7 from '../../images/7.svg';
-import img8 from '../../images/8.svg';
-import img9 from '../../images/9.svg';
+import img1 from '../../assets/images/1.svg';
+import img2 from '../../assets/images/2.svg';
+import img3 from '../../assets/images/3.svg';
+import img4 from '../../assets/images/4.svg';
+import img5 from '../../assets/images/5.svg';
+import img6 from '../../assets/images/6.svg';
+import img7 from '../../assets/images/7.svg';
+import img8 from '../../assets/images/8.svg';
+import img9 from '../../assets/images/9.svg';
 
 const Game = () => {
   const [showForm, setShowForm] = useState(true);
@@ -119,7 +119,7 @@ const handleClick = (index, square) => {
 
 if (showForm) {
   return (
-    <div className='component-container'>
+    <div className='playerform-container'>
       <h1 className='title'>Memory</h1>
       <PlayerForm
       data-test="Player Form" setPlayerNames= {setPlayerNames.bind(this)}
@@ -128,18 +128,15 @@ if (showForm) {
   )
 } else if (winner) {
   return (
-    <div data-test="Winner">
+    <div className = 'winner-container' data-test="Winner">
       <Winner
-      winner={winner}/>
-      <button
-      onClick={setShowForm.bind(this, true)}>
-        Play Again
-      </button>
+      winner={winner}
+      playAgain = {() => setShowForm.bind(this, true)}/>
     </div>
   )
 } else {
     return (
-      <div className='component-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
+      <div className='board-gameinfo-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
         <h1 className='title'>Memory</h1>
 
         <div className = 'board-container'>
