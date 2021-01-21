@@ -2,16 +2,49 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   color: white;
   font-family: 'Roboto';
   font-size: 20pt;
   width: 100%;
+  white-space: pre;
 
+  // @media only screen and (max-width: 500px) {
+  //
+  //   .player-matches {
+  //     white-space: normal;
+  //   }
+  //   .name-and-matches {
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: center;
+  //     align-items: center;
+  //     flex-wrap: wrap;
+  //     height: 30%;
+  //   }
+  // }
 
-  .matches {
+  .which-player, .name-and-matches {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 40%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 30%;
   }
+
+  .wrap-player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+
+  .next-player, .player-matches {
+    font-family: 'Potta One', sans-serif;
+    font-size: 28pt;
+    color: #6966ff;
+  }
+
+
 }

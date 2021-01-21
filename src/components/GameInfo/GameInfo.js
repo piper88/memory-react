@@ -6,14 +6,28 @@ const GameInfo = props => {
   // const beginGame = props.gameSquares.length > 0 ? null : <button onClick = {props.fillSquares}>Begin Game</button>;
 
 // {beginGame}
+
+// <p>{`${props.playerA.name}'s matches: ${props.playerA.matches}`}</p>
   return (
     <div className='game-info' data-test="GameInfo Component">
 
-      <h4>{`Next Player: ${props.whichPlayer}`}</h4>
+      <div className='which-player'>
+        <h4>Next Player    </h4>
+        <h4 className='next-player'>{props.whichPlayer}</h4>
+      </div>
 
-      <div className='matches'>
-        <p>{`${props.playerA.name}'s matches: ${props.playerA.matches}`}</p>
-        <p>{`${props.playerB.name}'s matches: ${props.playerB.matches}`}</p>
+      <div className='name-and-matches'>
+
+        <div className='wrap-player'>
+          <p className='player-name'>{`${props.playerA.name}'s matches`}    </p>
+          <p className='player-matches'>{props.playerA.matches}     </p>
+        </div>
+
+        <div className='wrap-player'>
+          <p className='player-name'>{`${props.playerB.name}'s matches`}    </p>
+          <p className='player-matches'>{props.playerB.matches}</p>
+        </div>
+
       </div>
     </div>
     )

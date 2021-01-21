@@ -35,6 +35,7 @@ const Game = () => {
   const [disableClick, setDisableClick] = useState(false);
   const [winner, setWinner] = useState(false);
 
+
   const setPlayerNames = (playerAName, playerBName) => {
     setPlayerA({...playerA, name: playerAName});
     setPlayerB({...playerB, name: playerBName});
