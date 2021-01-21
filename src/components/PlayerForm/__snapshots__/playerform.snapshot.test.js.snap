@@ -2,29 +2,32 @@
 
 exports[`should render PlayerForm correctly 1`] = `
 <form
+  className="form-container"
   data-test="Player Form"
   onSubmit={[Function]}
 >
   <label>
-    Player A:
+    Player 1:
     <input
       name="playerA"
       onChange={[Function]}
+      placeholder="Enter name"
       type="text"
       value=""
     />
   </label>
   <label>
-    Player B:
+    Player 2:
     <input
       name="playerB"
       onChange={[Function]}
+      placeholder="Enter name"
       type="text"
       value=""
     />
   </label>
   <button>
-    Submit
+    Begin Game!
   </button>
 </form>
 `;

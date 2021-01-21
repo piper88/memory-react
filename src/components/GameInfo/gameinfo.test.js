@@ -46,17 +46,17 @@ describe ('GameInfo Component', () => {
 
   describe('have props', () => {
     it ('should render without error', () => {
-      let wrapper = component.find(`[data-set="GameInfo Component"]`);
+      let wrapper = component.find(`[data-test="GameInfo Component"]`);
       expect(wrapper.length).toBe(1);
     })
 
     it('should render a button', () => {
-      let wrapper = component.find(`[data-set="GameInfo Component"]`);
+      let wrapper = component.find(`[data-test="GameInfo Component"]`);
       expect(wrapper.containsMatchingElement('<button>'))
     })
 
     it('should render a ul', () => {
-      let wrapper = component.find(`[data-set="GameInfo Component"]`);
+      let wrapper = component.find(`[data-test="GameInfo Component"]`);
       expect(wrapper.containsMatchingElement('<ul>'))
     })
   });

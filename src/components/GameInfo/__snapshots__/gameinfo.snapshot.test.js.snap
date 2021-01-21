@@ -4,21 +4,16 @@ exports[`should render GameInfo Component correctly  1`] = `
 <div
   data-set="GameInfo Component"
 >
-  <button
-    onClick={[Function]}
-  >
-    Begin Game
-  </button>
-  <ul>
-    <li>
+  <div>
+    <h4>
       Next Player: Nick
-    </li>
-    <li>
+    </h4>
+    <p>
       Nick's matches: 2
-    </li>
-    <li>
+    </p>
+    <p>
       Nora's matches: 2
-    </li>
-  </ul>
+    </p>
+  </div>
 </div>
 `;

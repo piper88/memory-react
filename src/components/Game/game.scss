@@ -1,13 +1,13 @@
-.title-container {
+.component-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 250px;
+  height: 300px;
 }
 
 .title {
   font-family: 'Potta One', sans-serif;
-  font-size: 36pt;
+  font-size: 44pt;
   text-shadow: 4px 4px 4px #aaa;
   color: #6966ff;
 }

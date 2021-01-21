@@ -35,9 +35,11 @@ const Game = () => {
   const [disableClick, setDisableClick] = useState(false);
   const [winner, setWinner] = useState(false);
 
+
   const setPlayerNames = (playerAName, playerBName) => {
     setPlayerA({...playerA, name: playerAName});
     setPlayerB({...playerB, name: playerBName});
+    setWhichPlayer(playerAName);
     setShowForm(false);
     fillSquares();
   }
@@ -65,9 +67,9 @@ useEffect(() => {
     if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
       console.log('that\'s a bingo');
       //increment score of whoever's turn it is
-      whichPlayer ==='A' ? setPlayerA({...playerA, matches: ++playerA.matches}) : setPlayerB({...playerB, matches: ++playerB.matches})
+      whichPlayer ===playerA.name ? setPlayerA({...playerA, matches: ++playerA.matches}) : setPlayerB({...playerB, matches: ++playerB.matches})
       //current player remains player if match is made
-      whichPlayer ==='A' ? setWhichPlayer('A') : setWhichPlayer('B');
+      whichPlayer ===playerA.name ? setWhichPlayer(playerA.name) : setWhichPlayer(playerB.name);
       //reset numberOfTurns and squaresClickedDuringTurn to initial values
       setNumberOfTurns(0);
       setSquaresClickedDuringTurn([]);
@@ -76,14 +78,13 @@ useEffect(() => {
       //if the cards were not a match
     } else {
       console.log('no bingo')
-      whichPlayer==='A' ? setWhichPlayer('B') : setWhichPlayer('A');
       setNumberOfTurns(0);
       setSquaresClickedDuringTurn([]);
       //show card that was flipped for 1.5 seconds
       setDisableClick(true);
       //after 1.5 seconds, remove the unmatched cards from exposedSquares
       setTimeout(() => {
-        // setTempExposedSquares([]);
+        whichPlayer===playerA.name ? setWhichPlayer(playerB.name) : setWhichPlayer(playerA.name);
         setExposedSquares(exposedSquares.slice(0, exposedSquares.length - 2))
         setDisableClick(false);
       }, 1500)
@@ -118,7 +119,7 @@ const handleClick = (index, square) => {
 
 if (showForm) {
   return (
-    <div className='title-container'>
+    <div className='component-container'>
       <h1 className='title'>Memory</h1>
       <PlayerForm
       data-test="Player Form" setPlayerNames= {setPlayerNames.bind(this)}
@@ -138,10 +139,10 @@ if (showForm) {
   )
 } else {
     return (
-      <div className='title-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
+      <div className='component-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
         <h1 className='title'>Memory</h1>
 
-        <div className="board" >
+        <div className = 'board-container'>
           <Board
           squares = {gameSquares}
           exposedSquares ={exposedSquares}
@@ -149,11 +150,10 @@ if (showForm) {
           onClick = {handleClick.bind(this)}/>
         </div>
 
-        <div className="game-info">
           <GameInfo
           playerA = {playerA}
-          playerB = {playerB}/>
-        </div>
+          playerB = {playerB}
+          whichPlayer={whichPlayer}/>
 
       </div>
     )
