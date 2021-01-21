@@ -7,15 +7,15 @@ const GameInfo = props => {
 
 // {beginGame}
   return (
-    <div data-set="GameInfo Component">
+    <div className='game-info' data-test="GameInfo Component">
 
+      <h4>{`Next Player: ${props.whichPlayer}`}</h4>
 
-        <div>
-          <h4>{`Next Player: ${props.playerA.name}`}</h4>
-          <p>{`${props.playerA.name}'s matches: ${props.playerA.matches}`}</p>
-          <p>{`${props.playerB.name}'s matches: ${props.playerB.matches}`}</p>
-        </div>
+      <div className='matches'>
+        <p>{`${props.playerA.name}'s matches: ${props.playerA.matches}`}</p>
+        <p>{`${props.playerB.name}'s matches: ${props.playerB.matches}`}</p>
       </div>
+    </div>
     )
 }
 

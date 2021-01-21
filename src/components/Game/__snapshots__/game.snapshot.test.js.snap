@@ -2,6 +2,7 @@
 
 exports[`should render Board component 1`] = `
 <div
+  className="title-container"
   data-test="Board and GameInfo"
   style={
     Object {
@@ -9,65 +10,286 @@ exports[`should render Board component 1`] = `
     }
   }
 >
+  <h1
+    className="title"
+  >
+    Memory
+  </h1>
   <div
-    className="board"
+    className="board-grid-container"
   >
     <div
-      className="container"
-    />
-  </div>
-  <div
-    className="game-info"
-  >
-    <div
-      data-set="GameInfo Component"
+      className="flip-container"
     >
       <button
+        data-test="Square Component"
         onClick={[Function]}
       >
-        Begin Game
+        <div
+          className="back"
+        />
       </button>
-      <ul>
-        <li>
-          Next Player: Sarah
-        </li>
-        <li>
-          Sarah's matches: 0
-        </li>
-        <li>
-          Piper's matches: 0
-        </li>
-      </ul>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+    <div
+      className="flip-container"
+    >
+      <button
+        data-test="Square Component"
+        onClick={[Function]}
+      >
+        <div
+          className="back"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    data-set="GameInfo Component"
+  >
+    <div>
+      <h4>
+        Next Player: Sarah
+      </h4>
+      <p>
+        Sarah's matches: 0
+      </p>
+      <p>
+        Piper's matches: 0
+      </p>
     </div>
   </div>
 </div>
 `;
 
 exports[`should render PlayerForm 1`] = `
-<form
-  data-test="Player Form"
-  onSubmit={[Function]}
+<div
+  className="title-container"
 >
-  <label>
-    Player A:
-    <input
-      name="playerA"
-      onChange={[Function]}
-      type="text"
-      value=""
-    />
-  </label>
-  <label>
-    Player B:
-    <input
-      name="playerB"
-      onChange={[Function]}
-      type="text"
-      value=""
-    />
-  </label>
-  <button>
-    Submit
-  </button>
-</form>
+  <h1
+    className="title"
+  >
+    Memory
+  </h1>
+  <form
+    className="form-container"
+    data-test="Player Form"
+    onSubmit={[Function]}
+  >
+    <label>
+      Player 1:
+      <input
+        name="playerA"
+        onChange={[Function]}
+        placeholder="Enter name"
+        type="text"
+        value=""
+      />
+    </label>
+    <label>
+      Player 2:
+      <input
+        name="playerB"
+        onChange={[Function]}
+        placeholder="Enter name"
+        type="text"
+        value=""
+      />
+    </label>
+    <button>
+      Begin Game!
+    </button>
+  </form>
+</div>
 `;

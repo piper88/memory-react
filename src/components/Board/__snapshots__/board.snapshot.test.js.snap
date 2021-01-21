@@ -2,20 +2,40 @@
 
 exports[`should render Board Component correctly 1`] = `
 <div
-  className="container"
+  className="board-grid-container"
 >
-  <button
-    data-test="Square Component"
-    onClick={[Function]}
-  />
-  <button
-    data-test="Square Component"
-    onClick={[Function]}
+  <div
+    className="flip-container"
   >
-    <img
-      alt=""
-      src={47}
-    />
-  </button>
+    <button
+      data-test="Square Component"
+      onClick={[Function]}
+    >
+      <div
+        className="back"
+      />
+    </button>
+  </div>
+  <div
+    className="flip-container"
+  >
+    <button
+      data-test="Square Component"
+      onClick={[Function]}
+    >
+      <div
+        className="flipper"
+      >
+        <div
+          className="front"
+        >
+          <img
+            alt=""
+            src={47}
+          />
+        </div>
+      </div>
+    </button>
+  </div>
 </div>
 `;

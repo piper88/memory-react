@@ -1,19 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render Square component correctly, with showImage prop equal to false 1`] = `
-<button
-  data-test="Square Component"
-  onClick={[Function]}
-/>
+<div
+  className="flip-container"
+>
+  <button
+    data-test="Square Component"
+    onClick={[Function]}
+  >
+    <div
+      className="back"
+    />
+  </button>
+</div>
 `;
 
 exports[`should render Square component correctly, with showImage prop equal to true 1`] = `
-<button
-  data-test="Square Component"
-  onClick={[Function]}
+<div
+  className="flip-container"
 >
-  <img
-    alt=""
-  />
-</button>
+  <button
+    data-test="Square Component"
+    onClick={[Function]}
+  >
+    <div
+      className="flipper"
+    >
+      <div
+        className="front"
+      >
+        <img
+          alt=""
+        />
+      </div>
+    </div>
+  </button>
+</div>
 `;

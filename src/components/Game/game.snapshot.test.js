@@ -19,7 +19,8 @@ test('should render Board component', () => {
   //create shallow rendering of component
   let shallowComponent = renderComponent();
   //call setPlayerNames prop, which will setShowForm to false
-  shallowComponent.props().setPlayerNames('Sarah', 'Piper');
+  let childComponent = shallowComponent.find('.title-container').childAt(1);
+  childComponent.props().setPlayerNames('Sarah', 'Piper');
   let snapshot = renderSnapshot(shallowComponent);
   // let component = renderer.create(shallowComponent);
   // let tree = component.toJSON();

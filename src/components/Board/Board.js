@@ -42,7 +42,7 @@ let grid = () => {
 }
 
   return (
-    <div className="board-grid-container">
+    <div className="grid-container">
       {grid()}
     </div>
   )

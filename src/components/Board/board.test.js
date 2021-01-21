@@ -64,7 +64,7 @@ describe('Board Component', () => {
   describe('have props', () => {
 
     it('should render without error', () => {
-      let wrapper = component.find('.container');
+      let wrapper = component.find('.board-grid-container');
       expect(wrapper.length).toBe(1);
     })
 
