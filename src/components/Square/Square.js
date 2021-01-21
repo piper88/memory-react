@@ -23,6 +23,7 @@ let content  = () => {
   return (
     <div className='flip-container'>
       <button
+      className='square-button'
       onClick = {props.onClick.bind(this)}
       data-test="Square Component">
         {content()}

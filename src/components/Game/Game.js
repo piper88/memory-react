@@ -5,18 +5,18 @@ import GameInfo from '../GameInfo/GameInfo.js';
 import Winner from '../Winner/Winner.js';
 import './game.scss';
 
-import img1 from '../../images/1.svg';
-import img2 from '../../images/2.svg';
-import img3 from '../../images/3.svg';
-import img4 from '../../images/4.svg';
-import img5 from '../../images/5.svg';
-import img6 from '../../images/6.svg';
-import img7 from '../../images/7.svg';
-import img8 from '../../images/8.svg';
-import img9 from '../../images/9.svg';
+import img1 from '../../assets/images/1.svg';
+import img2 from '../../assets/images/2.svg';
+import img3 from '../../assets/images/3.svg';
+import img4 from '../../assets/images/4.svg';
+import img5 from '../../assets/images/5.svg';
+import img6 from '../../assets/images/6.svg';
+import img7 from '../../assets/images/7.svg';
+import img8 from '../../assets/images/8.svg';
+import img9 from '../../assets/images/9.svg';
 
 const Game = () => {
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(true);
   const [whichPlayer, setWhichPlayer] = useState('');
   let [numberOfTurns, setNumberOfTurns] = useState(0);
   const [playerA, setPlayerA] = useState({
@@ -33,7 +33,7 @@ const Game = () => {
 
   const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
   const [disableClick, setDisableClick] = useState(false);
-  const [winner, setWinner] = useState(true);
+  const [winner, setWinner] = useState(false);
 
 
   const setPlayerNames = (playerAName, playerBName) => {
