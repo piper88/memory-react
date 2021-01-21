@@ -16,7 +16,7 @@ import img8 from '../../images/8.svg';
 import img9 from '../../images/9.svg';
 
 const Game = () => {
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
   const [whichPlayer, setWhichPlayer] = useState('');
   let [numberOfTurns, setNumberOfTurns] = useState(0);
   const [playerA, setPlayerA] = useState({
@@ -33,7 +33,7 @@ const Game = () => {
 
   const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
   const [disableClick, setDisableClick] = useState(false);
-  const [winner, setWinner] = useState(false);
+  const [winner, setWinner] = useState(true);
 
 
   const setPlayerNames = (playerAName, playerBName) => {
@@ -119,7 +119,7 @@ const handleClick = (index, square) => {
 
 if (showForm) {
   return (
-    <div className='component-container'>
+    <div className='playerform-container'>
       <h1 className='title'>Memory</h1>
       <PlayerForm
       data-test="Player Form" setPlayerNames= {setPlayerNames.bind(this)}
@@ -128,18 +128,15 @@ if (showForm) {
   )
 } else if (winner) {
   return (
-    <div data-test="Winner">
+    <div className = 'winner-container' data-test="Winner">
       <Winner
-      winner={winner}/>
-      <button
-      onClick={setShowForm.bind(this, true)}>
-        Play Again
-      </button>
+      winner={winner}
+      playAgain = {() => setShowForm.bind(this, true)}/>
     </div>
   )
 } else {
     return (
-      <div className='component-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
+      <div className='board-gameinfo-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
         <h1 className='title'>Memory</h1>
 
         <div className = 'board-container'>
