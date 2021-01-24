@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Game from './components/Game/Game.js';
+import Memory from './components/Memory/memory.js';
 import './index.scss'
 
 ReactDOM.render(
-  <Game/>,
+
+  <Memory/>,
   document.getElementById('root')
 )

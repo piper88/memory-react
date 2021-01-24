@@ -21,10 +21,6 @@ const Winner = props => {
       <h4>
       {`The winner is ${props.winner}`}
       </h4>
-      <button
-        onClick={props.playAgain()}>
-        Play Again
-      </button>
     </div>
   )
 }
