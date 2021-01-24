@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, forceUpdate } from 'react';
 import Board from '../Board/Board.js';
 import PlayerForm from '../PlayerForm/PlayerForm.js';
 import GameInfo from '../GameInfo/GameInfo.js';
@@ -15,7 +15,7 @@ import img7 from '../../assets/images/7.svg';
 import img8 from '../../assets/images/8.svg';
 import img9 from '../../assets/images/9.svg';
 
-const Game = () => {
+const Game = (props) => {
   const [showForm, setShowForm] = useState(true);
   const [whichPlayer, setWhichPlayer] = useState('');
   let [numberOfTurns, setNumberOfTurns] = useState(0);
@@ -31,9 +31,14 @@ const Game = () => {
   const [exposedSquares, setExposedSquares] = useState([])
   // const [tempExposedSquares, setTempExposedSquares] = useState([]);
 
+//[]
   const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
+  //false
   const [disableClick, setDisableClick] = useState(false);
+  //""
   const [winner, setWinner] = useState(false);
+  //false
+  const [playAgain, setPlayAgain] = useState(false);
 
 
   const setPlayerNames = (playerAName, playerBName) => {
@@ -44,6 +49,7 @@ const Game = () => {
     fillSquares();
   }
 
+  console.log(playAgain);
   const fillSquares = ()  => {
     let possibleSquares = [img1,img1,img2,img2,img3,img3,img4,img4,img5,img5,img6,img6,img7,img7,img8,img8,img9,img9];
     let squares = [];
@@ -58,6 +64,7 @@ const Game = () => {
       possibleSquares.splice(chosenIndex, 1);
     }
     setGameSquares(squares);
+    // setWinner(true);
   }
 
 //Check for matches
@@ -65,7 +72,6 @@ useEffect(() => {
   if (numberOfTurns === 2) {
     //if the cards were a match
     if (squaresClickedDuringTurn[0] === squaresClickedDuringTurn[1]) {
-      console.log('that\'s a bingo');
       //increment score of whoever's turn it is
       whichPlayer ===playerA.name ? setPlayerA({...playerA, matches: ++playerA.matches}) : setPlayerB({...playerB, matches: ++playerB.matches})
       //current player remains player if match is made
@@ -77,7 +83,6 @@ useEffect(() => {
       // setTempExposedSquares([]);
       //if the cards were not a match
     } else {
-      console.log('no bingo')
       setNumberOfTurns(0);
       setSquaresClickedDuringTurn([]);
       //show card that was flipped for 1.5 seconds
@@ -104,9 +109,9 @@ const handleClick = (index, square) => {
       }
     }
 
-
   useEffect(() => {
     if (exposedSquares.length === gameSquares.length && gameSquares.length > 0) {
+      console.log('winner');
       if (playerA.matches > playerB.matches) {
         setWinner(playerA.name);
       } else if (playerB.matches > playerA.matches) {
@@ -116,6 +121,11 @@ const handleClick = (index, square) => {
       }
     }
   }, [exposedSquares])
+
+//calling props.playAgain() will change key prop of Game, triggering a remounting of Game component
+  const remountComponent = () => {
+    props.playAgain();
+  };
 
 if (showForm) {
   return (
@@ -130,13 +140,17 @@ if (showForm) {
   return (
     <div className = 'winner-container' data-test="Winner">
       <Winner
-      winner={winner}
-      playAgain = {() => setShowForm.bind(this, true)}/>
+      winner={winner}/>
+      <button onClick={remountComponent.bind(this)}>Play Again</button>
     </div>
   )
 } else {
     return (
-      <div className='board-gameinfo-container' style={{pointerEvents: disableClick ? 'none' : 'auto'}} data-test="Board and GameInfo">
+      <div
+      className='board-gameinfo-container'
+      style={{pointerEvents: disableClick ? 'none' : 'auto'}}
+      data-test="Board and GameInfo"
+      >
         <h1 className='title'>Memory</h1>
 
         <div className = 'board-container'>
