@@ -2,18 +2,53 @@
 
 exports[`should render GameInfo Component correctly  1`] = `
 <div
-  data-set="GameInfo Component"
+  className="game-info"
+  data-test="GameInfo Component"
 >
-  <div>
+  <div
+    className="which-player"
+  >
     <h4>
-      Next Player: Nick
+      Next Player    
     </h4>
-    <p>
-      Nick's matches: 2
-    </p>
-    <p>
-      Nora's matches: 2
-    </p>
+    <h4
+      className="next-player"
+    />
+  </div>
+  <div
+    className="name-and-matches"
+  >
+    <div
+      className="wrap-player"
+    >
+      <p
+        className="player-name"
+      >
+        Nick's matches
+            
+      </p>
+      <p
+        className="player-matches"
+      >
+        2
+             
+      </p>
+    </div>
+    <div
+      className="wrap-player"
+    >
+      <p
+        className="player-name"
+      >
+        Nora's matches
+            
+      </p>
+      <p
+        className="player-matches"
+      >
+        2
+      </p>
+    </div>
   </div>
 </div>
 `;

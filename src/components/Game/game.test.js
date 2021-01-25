@@ -24,7 +24,7 @@ describe('testing Game Component', () => {
 
 //props() returns props object for root node of wrapper. Must be a single node wrapper. The wrapper is now a double node wrapper, so can't call props. Call childAt(1) first
   it('should render Board and GameInfo if showForm is false', () => {
-    let childComponent = component.find('.title-container').childAt(1);
+    let childComponent = component.find('.playerform-container').childAt(1);
     childComponent.props().setPlayerNames('whoeever', 'nobody');
     let wrapper = component.find(`[data-test="Board and GameInfo"]`);
     expect(wrapper.length).toBe(1);

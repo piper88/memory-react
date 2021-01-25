@@ -10,6 +10,7 @@ const Memory = () => {
 
   return (
     <Game
+    data-test='Game Component'
     playAgain = {remountComponent.bind(this)}
     key={playAgain}/>
   )

@@ -5,6 +5,8 @@ exports[`should render Winner Component correctly 1`] = `
   className="winner"
   data-test="Winner Component"
 >
-  The winner is me
+  <h4>
+    The winner is me
+  </h4>
 </div>
 `;

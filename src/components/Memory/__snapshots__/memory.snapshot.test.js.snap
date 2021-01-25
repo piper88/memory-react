@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Memory Component correctly 1`] = `
+<div
+  className="playerform-container"
+>
+  <h1
+    className="title"
+  >
+    Memory
+  </h1>
+  <form
+    className="form-container"
+    data-test="Player Form"
+    onSubmit={[Function]}
+  >
+    <label>
+      Player 1:
+      <input
+        name="playerA"
+        onChange={[Function]}
+        placeholder="Enter name"
+        type="text"
+        value=""
+      />
+    </label>
+    <label>
+      Player 2:
+      <input
+        name="playerB"
+        onChange={[Function]}
+        placeholder="Enter name"
+        type="text"
+        value=""
+      />
+    </label>
+    <button>
+      Begin Game!
+    </button>
+  </form>
+</div>
+`;

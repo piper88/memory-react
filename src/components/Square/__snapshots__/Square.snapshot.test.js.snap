@@ -5,6 +5,7 @@ exports[`should render Square component correctly, with showImage prop equal to 
   className="flip-container"
 >
   <button
+    className="square-button"
     data-test="Square Component"
     onClick={[Function]}
   >
@@ -20,6 +21,7 @@ exports[`should render Square component correctly, with showImage prop equal to 
   className="flip-container"
 >
   <button
+    className="square-button"
     data-test="Square Component"
     onClick={[Function]}
   >
