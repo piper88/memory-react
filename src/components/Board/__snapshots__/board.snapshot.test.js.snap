@@ -2,12 +2,13 @@
 
 exports[`should render Board Component correctly 1`] = `
 <div
-  className="board-grid-container"
+  className="grid-container"
 >
   <div
     className="flip-container"
   >
     <button
+      className="square-button"
       data-test="Square Component"
       onClick={[Function]}
     >
@@ -20,6 +21,7 @@ exports[`should render Board Component correctly 1`] = `
     className="flip-container"
   >
     <button
+      className="square-button"
       data-test="Square Component"
       onClick={[Function]}
     >

@@ -2,7 +2,7 @@
 
 exports[`should render Board component 1`] = `
 <div
-  className="title-container"
+  className="board-gameinfo-container"
   data-test="Board and GameInfo"
   style={
     Object {
@@ -16,238 +16,297 @@ exports[`should render Board component 1`] = `
     Memory
   </h1>
   <div
-    className="board-grid-container"
+    className="board-container"
   >
     <div
-      className="flip-container"
+      className="grid-container"
     >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
-    </div>
-    <div
-      className="flip-container"
-    >
-      <button
-        data-test="Square Component"
-        onClick={[Function]}
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
+      <div
+        className="flip-container"
       >
-        <div
-          className="back"
-        />
-      </button>
+        <button
+          className="square-button"
+          data-test="Square Component"
+          onClick={[Function]}
+        >
+          <div
+            className="back"
+          />
+        </button>
+      </div>
     </div>
   </div>
   <div
-    data-set="GameInfo Component"
+    className="game-info"
+    data-test="GameInfo Component"
   >
-    <div>
+    <div
+      className="which-player"
+    >
       <h4>
-        Next Player: Sarah
+        Next Player    
       </h4>
-      <p>
-        Sarah's matches: 0
-      </p>
-      <p>
-        Piper's matches: 0
-      </p>
+      <h4
+        className="next-player"
+      >
+        Sarah
+      </h4>
+    </div>
+    <div
+      className="name-and-matches"
+    >
+      <div
+        className="wrap-player"
+      >
+        <p
+          className="player-name"
+        >
+          Sarah's matches
+              
+        </p>
+        <p
+          className="player-matches"
+        >
+          0
+               
+        </p>
+      </div>
+      <div
+        className="wrap-player"
+      >
+        <p
+          className="player-name"
+        >
+          Piper's matches
+              
+        </p>
+        <p
+          className="player-matches"
+        >
+          0
+        </p>
+      </div>
     </div>
   </div>
 </div>
@@ -255,7 +314,7 @@ exports[`should render Board component 1`] = `
 
 exports[`should render PlayerForm 1`] = `
 <div
-  className="title-container"
+  className="playerform-container"
 >
   <h1
     className="title"
