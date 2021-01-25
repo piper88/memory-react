@@ -4,6 +4,7 @@ import PlayerForm from '../PlayerForm/PlayerForm.js';
 import GameInfo from '../GameInfo/GameInfo.js';
 import Winner from '../Winner/Winner.js';
 import './game.scss';
+import PropTypes from 'prop-types';
 
 import img1 from '../../assets/images/1.svg';
 import img2 from '../../assets/images/2.svg';
@@ -170,5 +171,9 @@ if (showForm) {
     )
   }
 };
+
+Game.propTypes = {
+  playAgain: PropTypes.func,
+}
 
 export default Game;

@@ -2,16 +2,39 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Game from './Game';
 import PlayerForm from '../PlayerForm/PlayerForm'
+import checkPropTypes from 'check-prop-types';
 
-const setUp = () => {
-  let component = shallow(<Game />)
+const setUp = (props) => {
+  let component = shallow(<Game {...props}/>)
   return component;
 }
 
 describe('testing Game Component', () => {
   let component;
   beforeEach(() => {
-    component = setUp();
+    const props = {
+      playAgain: () => 'Fake fn',
+    }
+    component = setUp(props);
+  })
+
+  describe('testing prop types', () => {
+    it ('should not throw a warning', () => {
+      const testProps = {
+        playAgain: () => 'Fake fn',
+      }
+      const propsErr = checkPropTypes(Game.propTypes, testProps, 'prop', Game);
+      expect(propsErr).toBeUndefined();
+    })
+
+    it('should throw a warning', () => {
+      const testProps = {
+        playAgain: false,
+      }
+      const propsErr = (/Failed prop type/).test(checkPropTypes(Game.propTypes, testProps, 'prop', Game));
+      expect(propsErr).toBe(true);
+
+    })
   })
   it ('should render Player Form without errors', () => {
     let wrapper = component.find(`[data-test="Player Form"]`);
