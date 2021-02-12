@@ -1,9 +1,9 @@
 # Memory
 
-##Getting Started
+## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-##Installation
+## Installation
 Access the project file by navigating to the github repository here: https://github.com/piper88/memory-react
 
 Clone the project using your preferred method (HTTPS/SSH/etc.)
@@ -16,17 +16,17 @@ Run 'npm start' or 'yarn start' to start the project via Localhost
 
 Play Memory!
 
-##Running Tests
+## Running Tests
 
 CD into the project
 
 Run 'yarn test' to run all tests
 
-##Built with
+## Built with
 - React -- The web framework
 - Jest and Enzyme -- The test runner and utility
 
-##Author
+## Author
 
 Sarah Bowles
 
