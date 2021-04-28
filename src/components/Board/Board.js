@@ -12,7 +12,7 @@ const Board = props => {
 //useCallback memoizes callbacks, to prevent unnecessasary renderings
 // const onClick = useCallback(
 //   (index, square) => {
-//     console.log('yo');
+
 //     return props.onClick(index, square)
 //   },
 //   [props.onClick]

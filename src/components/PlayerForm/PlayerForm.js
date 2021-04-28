@@ -24,7 +24,7 @@ const PlayerForm = props => {
 
   useEffect(() => {
     return () => {
-      // console.log('component did unmount');
+    
     };
   }, []);
 
