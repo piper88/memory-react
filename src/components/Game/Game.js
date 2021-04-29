@@ -110,7 +110,7 @@ const handleClick = (index, square) => {
 
   useEffect(() => {
     if (exposedSquares.length === gameSquares.length && gameSquares.length > 0) {
-      console.log('winner');
+
       if (playerA.matches > playerB.matches) {
         setWinner(playerA.name);
       } else if (playerB.matches > playerA.matches) {
