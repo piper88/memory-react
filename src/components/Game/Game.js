@@ -30,17 +30,11 @@ const Game = (props) => {
   });
   const [gameSquares, setGameSquares] = useState([]);
   const [exposedSquares, setExposedSquares] = useState([])
-  // const [tempExposedSquares, setTempExposedSquares] = useState([]);
 
-//[]
   const [squaresClickedDuringTurn, setSquaresClickedDuringTurn] = useState([])
-  //false
   const [disableClick, setDisableClick] = useState(false);
-  //""
   const [winner, setWinner] = useState(false);
-  //false
   const [playAgain, setPlayAgain] = useState(false);
-
 
   const setPlayerNames = (playerAName, playerBName) => {
     setPlayerA({...playerA, name: playerAName});
